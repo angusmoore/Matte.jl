@@ -2,9 +2,21 @@ module Matte
 
 import Genie, Genie.Router
 
-export sidebar_layout, tabs_layout, tab_panel
-export p, h1, h2, h3, slider, text_input
+# layouts
+export sidebar_layout, side_panel, main_panel
+export tabs_layout, tab_panel
+export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
+
+# style elements
+export p, h1, h2, h3
+
+# input elements
+export slider, text_input
+
+# output elements
 export text_output
+
+# functions and helpers
 export run_app
 
 include("reflection.jl")
