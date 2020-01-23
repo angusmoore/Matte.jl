@@ -2,7 +2,7 @@ module Matte
 
 import Genie, Genie.Router
 
-export sidebar_layout
+export sidebar_layout, tabs_layout, tab_panel
 export p, h1, h2, h3, slider, text_input
 export text_output
 export run_app

@@ -14,7 +14,7 @@ function ui_input_js(content::NTuple{N, UIElement}) where N
     join(skipmissing([x.model for x in content]), ",\n")
 end
 
-function unroll(content)
+function unroll(content::Tuple)
     out = ()
     for c in content
         if typeof(c) <: UIElement
@@ -42,7 +42,7 @@ function template_content(title, content)
     </div>
 </v-app-bar>
 <v-content>
-$(retrieve_content(content))
+$(retrieve_content(unroll(content)))
 </v-content>"""
 end
 
@@ -69,7 +69,7 @@ new Vue({
   el: '#app',
   vuetify: new Vuetify(),
   data: {
-    $(ui_input_js(ui()))
+    $(ui_input_js(unroll(ui())))
   },
   methods: {
     fetch_result: function(id, inputs) {
