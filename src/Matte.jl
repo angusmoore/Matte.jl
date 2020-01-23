@@ -11,7 +11,7 @@ export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
 export p, h1, h2, h3
 
 # input elements
-export slider, text_input
+export slider, text_input, number_input
 
 # output elements
 export text_output
