@@ -1,20 +1,15 @@
-struct UIElement
-    html::AbstractString
-    model::Union{AbstractString, Missing}
-end
+"""
+Input element that allows users to select among a set of integers using a slider
 
-UIElement(html::AbstractString) = UIElement(html, missing)
-UIElement(el::UIElement) = el
-
-tag_wrap(tag, contents) = (UIElement("<$tag>"), UIElement(contents), UIElement("</$tag>"))
-
-p(contents) = tag_wrap("p", contents)
-h1(contents) = tag_wrap("h1", contents)
-h2(contents) = tag_wrap("h2", contents)
-h3(contents) = tag_wrap("h3", contents)
-br() = UIElement("<br>")
-
-function slider(id, label, min, max, default = (max + min) / 2)
+Inputs:
+    id: Unique id for the input. This id is used as the variable name for the
+    value of in your server-side functions
+    label: Some text to describe what the slider does
+    min: Minimum value of the slider
+    max: Maximum value of the slider
+    default (optional): The starting value for the slider. Defaults to the mid point
+"""
+function slider(id::AbstractString, label::AbstractString, min::Integer, max::Integer, default::Integer = Int(round((max + min) / 2)))
 UIElement("""
 <v-slider
     v-model = "$id"
@@ -26,7 +21,19 @@ UIElement("""
     "$id: $default")
 end
 
-function text_input(id, label, default = "\"\"")
+"""
+Free text field for string input by users
+
+Inputs:
+    id: Unique id for the input. This id is used as the variable name for the
+    value of in your server-side functions.
+    label: Some text to describe what the text input is for
+    default: The starting value for the input when the app loads (default empty string)
+
+Note that a text input always returns a String to the server. If you need users
+to be able to freely enter a number, use `number_input`.
+"""
+function text_input(id::AbstractString, label::AbstractString, default::AbstractString = "\"\"")
 UIElement("""
 <v-text-field
     v-model = "$id"

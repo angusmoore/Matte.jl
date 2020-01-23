@@ -20,6 +20,8 @@ export text_output
 export run_app
 
 include("reflection.jl")
+include("ui-misc.jl")
+include("ui-design-elements.jl")
 include("ui-input-elements.jl")
 include("ui-layouts.jl")
 include("ui-output-elements.jl")
