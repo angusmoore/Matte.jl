@@ -1,5 +1,8 @@
 module TestGenerateJS
 
+using Test
+using Matte
+
 module Server
 
 function foo(slider)
@@ -12,6 +15,7 @@ end
 
 end
 
-@test Matte.get_watch_tree(Server) == Dict["slider" => ["bar", "foo"], "textinput" => ["bar"]]
+@test Matte.reverse_dependency_tree(Server) == Dict("slider" => ["bar", "foo"], "textinput" => ["bar"])
+@test Matte.dependency_tree(Server) == Dict("foo" => ["slider"], "bar" => ["slider", "textinput"])
 
 end

@@ -51,3 +51,6 @@ custom_layout = custom_grid_layout((
         )
     )
 ))
+
+@test typeof(custom_layout) <: Tuple
+@test typeof(custom_layout[1]) <: UIElement
