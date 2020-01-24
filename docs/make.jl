@@ -5,10 +5,8 @@ makedocs(
     format = Documenter.HTML(; prettyurls = get(ENV, "CI", nothing) == "true"),
     authors = "Angus Moore",
     sitename = "Matte.jl",
-    pages = Any["index.md"]
-    # strict = true,
-    # clean = true,
-    # checkdocs = :exports,
+    pages = Any["index.md"],
+    checkdocs = :exports
 )
 
 deploydocs(

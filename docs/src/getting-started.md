@@ -1,18 +1,4 @@
-# Matte.jl
-
-![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
-![CI](https://github.com/angusmoore/Matte.jl/workflows/CI/badge.svg)
-[![codecov.io](http://codecov.io/github/angusmoore/Matte.jl/coverage.svg?branch=master)](http://codecov.io/github/angusmoore/Matte.jl?branch=master)
-
-Matte is a julia library for julia-powered dashboards, inspired by Google's material design. Matte makes it easy to convert your existing julia code into a beautiful and powerful dashboard for end users. Matte is easy to use, fast, and powerful.
-
-**Please note**: Matte is still highly experimental.
-
-## Examples
-
-
-
-## Getting started
+# Getting started
 
 ### Installation
 
@@ -68,19 +54,3 @@ Matte will take a little while to start. Your app is up and running once you see
 Web Server starting at http://0.0.0.0:8000
 ```
 Navigate your favourite web browser to the address listed above and (after a few seconds) viola! Your app is ready!
-
-## Documentation
-
-[Introduction to Matte]("https://angusmoore.github.io/Matte.jl/stable/introduction") is a good place to start. It walks you through getting set up, and creating, running and customising your first app.
-
-The official documentation can be found [here]("https://angusmoore.github.io/Matte.jl").
-
-## Support, bugs, & planned features
-
-General support for help with usage and troubleshooting is best directed to the [julialang discourse](https://discourse.julialang.org/).
-
-Please report any bugs you find on the [github issue tracker](https://github.com/angusmoore/Matte.jl/issues). Feature requests can be logged there too.
-
-## Acknowledgements
-
-Matte is made possible by a range of excellent julia and javascript open source libraries. Of particular note: [Genie.jl](https://genieframework.github.io/Genie.jl/), [Vuetify](https://vuetifyjs.com/) and [Vue.js](https://vuejs.org/).
