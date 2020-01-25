@@ -8,7 +8,7 @@ export tabs_layout, tab_panel
 export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
 
 # style elements
-export p, h1, h2, h3
+export p, h1, h2, h3, br
 
 # input elements
 export slider, text_input, number_input
@@ -18,6 +18,7 @@ export text_output
 
 # functions and helpers
 export run_app
+export new_matte_app, matte_example
 
 include("reflection.jl")
 include("ui-misc.jl")
@@ -29,5 +30,6 @@ include("generate-js.jl")
 include("template.jl")
 include("run.jl")
 include("backend.jl")
+include("usethis.jl")
 
 end # module

@@ -4,7 +4,7 @@ Matte comes with a number of example apps to demonstrate how it works. Let's sta
 `hello_world` example.
 
 Open Julia. If you haven't already, install Matte -- instructions can be found in the
-[Getting started](@ref) part of the manual.
+[Getting started](@ref getting-started) part of the manual.
 
 Next create a new Matte app, and populate it with the included `hello_world` app by running:
 ```
@@ -22,8 +22,35 @@ and open up the folder in your favourite editor. There are two files that Matte 
 manager, for specifying your app's dependencies. `app.jl` (unsurprisingly!) is the app.
 It defines the server-side logic, and the UI. Open that file in your favourite editor. It
 should look like this:
-```@example
-read(joinpath(pathof(Matte), "examples", "hello_world", "app.jl")) # hide
+```
+module HelloWorldApp
+
+using Matte
+
+const title = "Hello World"
+
+function ui()
+    sidebar_layout(
+        side_panel(
+            h1("Hello World!"),
+            text_input("my_input", "Input some text")
+        ),
+        main_panel(
+            h1("You wrote:"),
+            p(text_output("my_output"))
+        )
+    )
+end
+
+module Server
+
+function my_output(my_input)
+    my_input
+end
+
+end
+
+end
 ```
 
 Before we dig in to what makes a Matte app, let's run the app. First we need to activate the
@@ -37,7 +64,7 @@ julia> run_app(HelloWorldApp)
 ```
 Open your favourite web browser and visit `http://localhost:8000`. After a few seconds you
 should see a simple webpage that looks like this:
-![Hello world screenshot]("assets/hello-world.png")
+![Hello world screenshot](assets/hello-world.png)
 
 You can type some text on the left, and it will appear on the right. Not very exciting, but
 it's our first Matte app!
@@ -80,5 +107,5 @@ end
 Go back to your browser, refresh the page, and try out the new text input.
 
 That's it! You've created, customised and run your first Matte app. In the next article
-[Building a Matte app](@ref) we'll go into more detail about creating UIs and server-side
+[Building a Matte app](@ref building-app) we'll go into more detail about creating UIs and server-side
 logic.
