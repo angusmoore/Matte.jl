@@ -25,28 +25,64 @@ function dependency_tree(server_module)
     dependencies
 end
 
-function jsonify_inputs(inputs)
-    join(["$input : this.$(input)" for input in inputs], ", ")
+function jsonify_inputs(inputs, is_value)
+    out = Array{String, 1}()
+    for input in inputs
+        if !ismissing(is_value) && input == is_value
+            push!(out, "$input: value")
+        else
+            push!(out, "$input : this.$(input)")
+        end
+    end
+    join(out, ", ")
 end
 
-function watch_function(input_id, reverse_dependencies, dependency_tree)
-    out = "$input_id: function(value) {\n"
+function fetch_update_methods(input_id, reverse_dependencies, dependency_tree)
+    out = "
+    fetch_update_$input_id: function(value) {\n"
     for output in reverse_dependencies
-        out *= "        this.fetch_result(\"$output\", {$(jsonify_inputs(dependency_tree[output]))})\n"
+        out *= "        this.fetch_result(\"$output\", {$(jsonify_inputs(dependency_tree[output], input_id))})\n"
     end
     out *= "    }"
 
     out
 end
 
+function watch_function(input_id)
+    "
+    $input_id: function(value) {
+        this.fetch_update_$input_id(value)
+    }"
+end
+
+function fetch_method_js()
+    """
+    fetch_result: function(id, inputs) {
+        axios.post("http://localhost:8000/matte/api", {
+            id: id,
+            input: inputs
+        }).then(response => {
+                if (!(response.data[id] === null)) {
+                    this[id] = response.data[id]
+                }
+            })
+    }
+    """
+end
+
 function generate_output_js(server_module)
     dep_tree = dependency_tree(server_module)
     rev_dep = reverse_dependency_tree(server_module)
 
-    watches = [watch_function(input_id, outputs_affected, dep_tree) for (input_id, outputs_affected) in rev_dep]
-    mounts = ["this.fetch_result(\"$output_id\", {$(jsonify_inputs(dependencies))})" for (output_id, dependencies) in dep_tree]
+    methods = [fetch_update_methods(input_id, outputs_affected, dep_tree) for (input_id, outputs_affected) in rev_dep]
+    pushfirst!(methods, fetch_method_js())
+    watches = [watch_function(input_id) for (input_id, outputs_affected) in rev_dep]
+    mounts = ["this.fetch_result(\"$output_id\", {$(jsonify_inputs(dependencies, missing))})" for (output_id, dependencies) in dep_tree]
 
     """
+    methods: {
+        $(join(methods, ",\n"))
+    },
     watch: {
         $(join(watches, ",\n"))
     },

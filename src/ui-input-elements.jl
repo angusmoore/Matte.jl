@@ -67,3 +67,19 @@ function number_input(id::AbstractString, label::AbstractString, default::Intege
     """,
         "$id: $default")
 end
+
+
+"""
+    button(id, label, color, size)
+
+Add a button to a UI. Buttons return `true` to the server when clicked, and false otherwise.
+
+size can be one of `x-small`, `small`, `normal`, `large`, `x-large`
+color can be any valid color (see docs on colors for a full list) - e.g. `primary`, `error`, `teal` etc
+"""
+function button(id::AbstractString, label::AbstractString, color::AbstractString = "normal", size::AbstractString = "normal")
+    UIElement("""
+    <v-btn $size color="$color" v-model="$id" @click="fetch_update_$id(true)">$label</v-btn>
+    """,
+    "$id: false")
+end

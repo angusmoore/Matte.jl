@@ -71,14 +71,6 @@ new Vue({
   data: {
     $(ui_input_js(unroll(ui())))
   },
-  methods: {
-    fetch_result: function(id, inputs) {
-        axios.post("http://localhost:8000/matte/api", {
-            id: id,
-            input: inputs
-        }).then(response => {this[id] = response.data[id]})
-    }
-  },
   $(generate_output_js(server_module))
 })
 </script>
