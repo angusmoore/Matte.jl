@@ -1,13 +1,7 @@
 """
-Input element that allows users to select among a set of integers using a slider
+    slider(id, label, min, max, default = Int(round((max + min) / 2))
 
-Inputs:
-    id: Unique id for the input. This id is used as the variable name for the
-    value of in your server-side functions
-    label: Some text to describe what the slider does
-    min: Minimum value of the slider
-    max: Maximum value of the slider
-    default (optional): The starting value for the slider. Defaults to the mid point
+Input element that allows users to select among a set of integers using a slider
 """
 function slider(id::AbstractString, label::AbstractString, min::Integer, max::Integer, default::Integer = Int(round((max + min) / 2)))
 UIElement("""
@@ -22,13 +16,9 @@ UIElement("""
 end
 
 """
-Free text field for string input by users
+    text_input(id, label, default = "")
 
-Inputs:
-    id: Unique id for the input. This id is used as the variable name for the
-    value of in your server-side functions.
-    label: Some text to describe what the text input is for
-    default: The starting value for the input when the app loads (default empty string)
+Free text field for string input by users
 
 Note that a text input always returns a String to the server. If you need users
 to be able to freely enter a number, use `number_input`.
@@ -45,13 +35,9 @@ UIElement("""
 end
 
 """
-Form input that only accepts numbers
+    number_input(id, label, default = 0)
 
-Inputs:
-    id: Unique id for the input. This id is used as the variable name for the
-    value of in your server-side functions.
-    label: Some text to describe what the number input is for
-    default: The starting value for the input when the app loads (default 0)
+Form input that only accepts numbers
 
 Note that `number_input` always returns a float to the server. If you need a string
 use `text_input`. If you need integers, you can use a `slider` or round the result.

@@ -1,8 +1,7 @@
 """
-A narrow/side control (1/3 width) panel to be embedded in a `sidebar_layout`
+    side_panel(content...)
 
-Inputs:
-    * content...: the content to fill the panel
+A narrow/side control (1/3 width) panel to be embedded in a `sidebar_layout`
 
 Should only be used as part of a `sidebar_layout`
 """
@@ -13,10 +12,9 @@ function side_panel(content...)
 end
 
 """
-A main (2/3 width) panel to be embedded in a `sidebar_layout`
+     main_panel(content...)
 
-Inputs:
-    * content...: the content to fill the panel
+A main (2/3 width) panel to be embedded in a `sidebar_layout`
 
 Should only be used as part of a `sidebar_layout`
 """
@@ -27,12 +25,10 @@ function main_panel(content...)
 end
 
 """
+    sidebar_layout(leftpanel, rightpanel)
+
 Create a side bar layout for your app: a 1/3 width control panel and a 2/3 width
 main/output panel.
-
-Inputs:
-    leftpanel: The panel (either a `main_panel` or `side_panel`) to go on the left side of the layout.
-    rightpanel: The panel (either a `main_panel` or `side_panel`) to go on the right side of the layout.
 """
 function sidebar_layout(leftpanel, rightpanel)
     (UIElement("""<v-container cols = "12"><v-row>"""),
@@ -41,22 +37,20 @@ function sidebar_layout(leftpanel, rightpanel)
 end
 
 """
+    custom_grid_layout(content...)
+
 Create a container to contain a custom layout.
 
 Containers embed rows (which embed columns) to create layouts.
-
-Inputs:
-    contents...: The content to go in the container. Must be rows.
 """
 function custom_grid_layout(content...)
     (UIElement("<v-container cols = \"12\">"), content, UIElement("</v-container>"))
 end
 
 """
-Create a row for a custom layout
+    custom_grid_row(content...)
 
-Inputs:
-    content...: The content to go in the rows. Must be columns.
+Create a row for a custom layout
 
 Rows wrap columns.
 """
@@ -65,11 +59,9 @@ function custom_grid_row(content...)
 end
 
 """
-Create a layout column that covers width/12 of the row
+    custom_grid_column(content...; width = 12)
 
-Inputs:
-    * content...: The content to go in the column
-    * width: Width of the column. Full width = 12 . (Default 12)
+Create a layout column that covers width/12 of the row
 
 Columns must be contained in rows (`custom_grid_row`)
 """
@@ -78,12 +70,11 @@ function custom_grid_column(content...; width = 12)
 end
 
 """
+    custom_card(content...)
+
 Create a 'card' to contain content. Cards are boxes with drop shadows.
 
 For use in `custom_grid_layout`s, to define sections of the page inside a column
-
-Inputs:
-    content...: The content to be contained inside the card
 """
 function custom_card(content...)
     (UIElement("<v-card><v-card-text>"), content, UIElement("</v-card></v-card-text>"))
@@ -95,12 +86,10 @@ struct TabPanel
 end
 
 """
+    tabs_layout(tabs...; vertical = false)
+
 Create a tab layout -- app (or inset) with pages that can be navigated to using
 a series of tabs
-
-Input:
-    tabs...: A tuple of `tab_panel`s to display in the layout
-    vertical (optional, default false): Display the tabs as a vertical menu
 """
 function tabs_layout(tabs...; vertical = false)
 
@@ -122,11 +111,9 @@ function tabs_layout(tabs...; vertical = false)
 end
 
 """
-Define a panel for use in a tab layout
+    tab_panel(title, content)
 
-Inputs:
-    title: Title for the tab (appears in the tab bar)
-    content: Content for the panel
+Define a panel for use in a tab layout
 
 `tab_panel` should only be used as input to a `tabs_layout`
 """
