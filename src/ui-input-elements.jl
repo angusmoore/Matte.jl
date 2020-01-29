@@ -69,3 +69,13 @@ function button(id::AbstractString, label::AbstractString, color::AbstractString
     """,
     "$id: false")
 end
+
+"""
+    floating_action_button(id, label, location = "bottom right", color = "red")
+
+Add a floating action button to your UI at `location`
+"""
+function floating_action_button(id::AbstractString, label::AbstractString, location::AbstractString = "bottom right", color::AbstractString = "red", size::AbstractString = "normal")
+    UIElement("""<v-btn absolute fab $location color="$color" @click="fetch_update_$id(true)">$label</v-btn>""",
+            "$id: false")
+end
