@@ -9,7 +9,7 @@ export tabs_layout, tab_panel
 export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
 
 # style elements
-export p, h1, h2, h3, br
+export p, h1, h2, h3, br, dialog
 
 # input elements
 export slider, text_input, number_input, button
