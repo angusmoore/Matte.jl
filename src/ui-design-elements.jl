@@ -85,3 +85,22 @@ function dialog(id, title, content, width = 500)
     """,
     "$id: false"))
 end
+
+"""
+    tooltip(content, tip)
+
+Add a mouseover-activated tooltip to the UI elements contained in `content`. Works best for
+small elements like buttons.
+"""
+function tooltip(content, tip)
+    UIElement("""<v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <span v-on="on">"""),
+    content,
+    UIElement("""
+        </span>
+      </template>
+      <span>$tip</span>
+    </v-tooltip>
+    """)
+end
