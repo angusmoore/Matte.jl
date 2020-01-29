@@ -11,7 +11,7 @@ end
 ui_input_js(content::UIElement) = content.model
 
 function ui_input_js(content::NTuple{N, UIElement}) where N
-    join(skipmissing([x.model for x in content]), ",\n")
+    join(["error_snackbar: false,\nmatte_error_msg: \"\"", skipmissing([x.model for x in content])...], ",\n")
 end
 
 function unroll(content::Tuple)
@@ -60,6 +60,20 @@ function generate_template(title, ui, server_module)
 <body>
 <div id="app">
 $(template_content(title, ui()))
+
+<v-snackbar
+      v-model="error_snackbar"
+      color = "error"
+      :timeout="10000"
+    >
+      {{ matte_error_msg }}
+      <v-btn
+        text
+        @click="error_snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>

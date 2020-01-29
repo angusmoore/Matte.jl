@@ -62,7 +62,10 @@ function fetch_method_js()
             id: id,
             input: inputs
         }).then(response => {
-                if (!(response.data[id] === null)) {
+                if (response.data.hasOwnProperty("matte_error_msg") && !(response.data["matte_error_msg"] === null)) {
+                    this.matte_error_msg = response.data["matte_error_msg"] 
+                    this.error_snackbar = true
+                } else if (!(response.data[id] === null)) {
                     this[id] = response.data[id]
                 }
             })
