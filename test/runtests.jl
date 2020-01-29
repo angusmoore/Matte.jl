@@ -9,3 +9,7 @@ end
 @testset "Generate JS" begin
     include("test-generate-js.jl")
 end
+
+@testset "Scaffolding helper functions" begin
+    include("test-usethis.jl")
+end
