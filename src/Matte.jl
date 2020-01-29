@@ -1,6 +1,7 @@
 module Matte
 
 import Genie, Genie.Router
+import Pkg
 
 # layouts
 export sidebar_layout, side_panel, main_panel

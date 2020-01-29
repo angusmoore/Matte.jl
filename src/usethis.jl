@@ -9,8 +9,12 @@ list of examples that you can use here.
 overwrite
 """
 function matte_example(example, path, force = false)
-    src = joinpath(dirname(pathof(Matte)), "..", "examples", "hello_world")
+    src = joinpath(dirname(pathof(Matte)), "..", "examples", example)
     cp(src, path)
+    println("App created.\nChanging working directory to `path` and activating the project...")
+    cd(path)
+    Pkg.activate(".")
+    println("Done!")
 end
 
 """

@@ -1,8 +1,14 @@
 
 
 @test_throws SystemError("mkdir", 2, "/foo/bar/app") matte_example("hello_world", "/foo/bar/app")
-@test new_matte_app("test_new_app") == "test_new_app"
-@test matte_example("hello_world", "hello_world") == "hello_world"
-
+new_matte_app("test_new_app") == "test_new_app"
+@test basename(pwd()) == "test_new_app"
+@test isfile("app.jl")
+cd("../")
 rm("test_new_app", recursive = true)
+
+matte_example("hello_world", "hello_world") == "hello_world"
+@test basename(pwd()) == "hello_world"
+@test isfile("app.jl")
+cd("../")
 rm("hello_world", recursive = true)
