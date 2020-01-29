@@ -1,6 +1,6 @@
-
-
 module TestAPI
+
+using Matte
 
 ui = function()
     tabset_panel((
@@ -18,11 +18,12 @@ end
 
 end
 
-run_app("test", ui, Server)
+end
 
-HTTP.request("POST", "http://localhost:8000/matte/api", [("Content-Type", "application/json")],
+run_app(TestAPI, async = true)
+
+res = HTTP.request("POST", "http://localhost:8000/matte/api", [("Content-Type", "application/json")],
        """{"id": "foo", "input" : {"a" : 1}}""")
 
-exit(0)
-
-end
+@test res.status == 200
+@test String(res.body) == "{\"foo\":2}"

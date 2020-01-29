@@ -1,4 +1,4 @@
-sidebar_layout = sidebar_layout(
+sidebar = sidebar_layout(
     side_panel(
         h1("hi there"),
         slider("slider","Slider",-100,11),
@@ -12,10 +12,10 @@ sidebar_layout = sidebar_layout(
     )
 )
 
-@test typeof(sidebar_layout) <: Tuple
-@test typeof(sidebar_layout[1]) <: UIElement
+@test typeof(sidebar) <: Tuple
+@test typeof(sidebar[1]) <: Matte.UIElement
 
-tab_layout = tabs_layout(
+tabs = tabs_layout(
     tab_panel("Tab 1", (
         h1("hi there"),
         slider("slider","Slider",-100,11),
@@ -29,10 +29,10 @@ tab_layout = tabs_layout(
     ))
 )
 
-@test typeof(tab_layout) <: Tuple
-@test typeof(tab_layout[1]) <: UIElement
+@test typeof(tabs) <: Tuple
+@test typeof(tabs[1]) <: Matte.UIElement
 
-custom_layout = custom_grid_layout((
+custom = custom_grid_layout((
     custom_grid_row(
         custom_grid_column(
             (
@@ -52,5 +52,5 @@ custom_layout = custom_grid_layout((
     )
 ))
 
-@test typeof(custom_layout) <: Tuple
-@test typeof(custom_layout[1]) <: UIElement
+@test typeof(custom) <: Tuple
+@test typeof(custom[1]) <: Matte.UIElement
