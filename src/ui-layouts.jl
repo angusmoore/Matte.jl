@@ -119,4 +119,23 @@ Define a panel for use in a tab layout
 """
 function tab_panel(title, content)
     TabPanel(title, unroll(content))
-  end
+end
+
+"""
+    footer(content, bgcolor = "grey lighten-4")
+
+Add a footer to your UI, containing `content`. If you need to include multiple elements
+inside `content`, wrap them as a tuple.
+"""
+function footer(content, bgcolor = "grey lighten-4")
+    (UIElement("""<v-footer
+      absolute
+      color = "$bgcolor">
+      <v-col
+        class="text-center"
+        cols="12">"""),
+    content,
+    UIElement("""
+      </v-col>
+    </v-footer>"""))
+end

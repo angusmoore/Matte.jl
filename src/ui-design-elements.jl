@@ -91,9 +91,11 @@ end
 
 Add a mouseover-activated tooltip to the UI elements contained in `content`. Works best for
 small elements like buttons.
+
+If you need to include multiple elements inside `content`, wrap them as a tuple.
 """
 function tooltip(content, tip)
-    UIElement("""<v-tooltip bottom>
+    (UIElement("""<v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <span v-on="on">"""),
     content,
@@ -102,5 +104,5 @@ function tooltip(content, tip)
       </template>
       <span>$tip</span>
     </v-tooltip>
-    """)
+    """))
 end

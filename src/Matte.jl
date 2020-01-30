@@ -7,6 +7,7 @@ import Pkg
 export sidebar_layout, side_panel, main_panel
 export tabs_layout, tab_panel
 export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
+export footer
 
 # style elements
 export p, h1, h2, h3, br, dialog
