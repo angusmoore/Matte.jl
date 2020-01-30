@@ -168,3 +168,29 @@ Create an html `<span>` and wrap `content` in it
 """
 
 span(content...) = tag_wrap("span", content...)
+
+
+"""
+    expansion_panel_list(items...)
+
+Create a list of expansion panel items. `items` should _only_ be a set of `expansion_panel`s
+"""
+function expansion_panel_list(items...)
+    tag_wrap("v-expansion-panels", items)
+end
+
+"""
+    expansion_panel(header, content)
+
+Create an expansion panel with that appears as `header` in the list and can expanded to also
+show `content`
+
+Should only be used inside an `expansion_panel_list`
+
+If you need to include multiple elements inside `header` or `content`, wrap them as a tuple.
+"""
+function expansion_panel(header, content)
+    tag_wrap("v-expansion-panel",
+        (tag_wrap("v-expansion-panel-header", header),
+        tag_wrap("v-expansion-panel-content", content)))
+end
