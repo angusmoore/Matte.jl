@@ -79,3 +79,24 @@ function floating_action_button(id::AbstractString, label::AbstractString, locat
     UIElement("""<v-btn absolute fab $location color="$color" @click="fetch_update_$id(true)">$label</v-btn>""",
             "$id: false")
 end
+
+"""
+    date_picker(id::AbstractString, color::AbstractString = "primary")
+
+Add a date picker to your UI. Date is returned as a String in ISO 8601 form (YYYY-MM-DD)
+"""
+function date_picker(id::AbstractString, color::AbstractString = "primary")
+    UIElement("""<v-date-picker v-model="$id" color="$color" header-color="$color"></v-date-picker>""",
+    "$id: new Date().toISOString().substr(0, 10)")
+end
+
+"""
+    time_picker(id, color = "primary")
+
+Add a clock time picker to your UI. Time is returned as a String, in HH:MM 24 hour format.
+Returns `nothing` if user has not yet picked a time.
+"""
+function time_picker(id::AbstractString, color::AbstractString = "primary", default::Union{AbstractString, Nothing} = nothing)
+    UIElement("""<v-time-picker v-model="$id" color = "$color"></v-time-picker>""",
+    """$id: $(isnothing(default) ? "null" : "\"$default\"")""")
+end
