@@ -10,7 +10,7 @@ export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
 export footer
 
 # style elements
-export p, h1, h2, h3, br, dialog
+export p, h1, h2, h3, br, dialog, div, span, visible_if
 
 # input elements
 export slider, text_input, number_input, button, floating_action_button, tooltip
