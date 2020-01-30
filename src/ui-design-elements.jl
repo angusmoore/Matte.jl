@@ -1,38 +1,38 @@
 """
     p(contents)
 
-Wrap some text in a paragraph tag. Helps with layout of text.
+Wrap some text in a paragraph tag. Helps with layout of raw text.
 """
-p(contents) = tag_wrap("p", contents)
+p(contents...) = tag_wrap("p", contents...)
 
 """
-    h1(contents)
+    h1(contents...)
 
 Show contents as a level 1 heading
 """
-h1(contents) = tag_wrap("h1", contents)
+h1(contents...) = tag_wrap("h1", contents...)
 
 """
-    h2(contents)
+    h2(contents...)
 
 Show contents as a level 2 heading
 """
-h2(contents) = tag_wrap("h2", contents)
+h2(contents...) = tag_wrap("h2", contents...)
 
 """
-    h4(contents)
+    h3(contents...)
 
 Show contents as a level 3 heading
 """
-h4(contents) = tag_wrap("h3", contents)
+h3(contents...) = tag_wrap("h3", contents...)
 
 
 """
-        h4(contents)
+    h4(contents...)
 
 Show contents as a level 4 heading
 """
-h4(contents) = tag_wrap("h4", contents)
+h4(contents...) = tag_wrap("h4", contents...)
 
 """
     br()
@@ -50,6 +50,8 @@ Visibility is controlled by `id`. A common use case is to define this output fun
 sole input from a button, and simply return whether the button has been clicked.
 
 `title` and `content` can be dynamically set.
+
+If you need to include multiple elements inside `content`, wrap them as a tuple.
 """
 function dialog(id, title, content, width = 500)
     (UIElement("""
