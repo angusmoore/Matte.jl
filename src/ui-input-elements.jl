@@ -100,3 +100,43 @@ function time_picker(id::AbstractString, color::AbstractString = "primary", defa
     UIElement("""<v-time-picker v-model="$id" color = "$color"></v-time-picker>""",
     """$id: $(isnothing(default) ? "null" : "\"$default\"")""")
 end
+
+"""
+    function select(id, label, items, multiple = false, autocomplete = false)
+
+Create a selection box in your UI for users to choose among options. Allow multiple selections
+with `multiple`. Let users type in the box to filter options by setting `autocomplete` to `true`.
+`items` can either be a string for a static (javascript) array of options (i.e. "['a first option',
+'the second option']") or an id that corresponds to a function in your Server that returns an
+array of options (potentially dynamically).
+
+Returns either an Array (if no or multiple elements are selected) or the type of the individual
+element if only one is selected. The type that is returned depends on the types of the elements
+in the select list.
+"""
+function select(id::AbstractString, label::AbstractString, items::AbstractString, multiple::Bool = false, autocomplete::Bool = false)
+    items_model = occursin("[", items) ? "" : ",\n$items: []"
+    if !autocomplete
+        UIElement("""
+        <v-select
+                v-model="$id"
+                :items="$items"
+                attach
+                label="$label"
+                filled
+                $(multiple ? "multiple" : "")></v-select>""",
+        "$id: []
+        $items_model")
+    else
+        UIElement("""
+        <v-autocomplete
+                v-model="$id"
+                :items="$items"
+                attach
+                label="$label"
+                filled
+                $(multiple ? "multiple" : "")></v-select>""",
+        "$id: []
+        $items_model")
+    end
+end

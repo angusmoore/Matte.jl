@@ -14,7 +14,7 @@ export footer
 export p, h1, h2, h3, br, dialog, div, span, visible_if
 
 # input elements
-export slider, text_input, number_input, button, floating_action_button, tooltip, date_picker, time_picker
+export slider, text_input, number_input, button, floating_action_button, tooltip, date_picker, time_picker, select
 
 # output elements
 export text_output
