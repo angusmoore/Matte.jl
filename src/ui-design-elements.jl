@@ -52,6 +52,10 @@ sole input from a button, and simply return whether the button has been clicked.
 `title` and `content` can be dynamically set.
 
 If you need to include multiple elements inside `content`, wrap them as a tuple.
+
+!!! note
+    For best results `dialog`s should be placed at the _end_ of your UI, after the layout.
+    Placing them inside a layout can cause them to be hidden.
 """
 function dialog(id, title, content, width = 500)
     (UIElement("""
@@ -85,6 +89,42 @@ function dialog(id, title, content, width = 500)
       </v-card>
     </v-dialog>
     """,
+    "$id: false"))
+end
+
+"""
+    snackbar(id, content; color = "error", width = 500)
+
+Display a snackbar at the bottom of the page to notify users of events or other info.
+Visibility of the snackbar is controlled by `id`, which should be a boolean. A common use
+case is to define this output function to have sole input from a button, and simply return
+whether the button has been clicked.
+
+`content` can be dynamically set.
+
+If you need to include multiple elements inside `content`, wrap them as a tuple.
+
+Snackbars automatically close based on the timeout set (in milliseconds). Set to 0 to keep
+open indefinitely.
+
+!!! note
+    For best results `snackbar`s should be placed at the _end_ of your UI, after the layout.
+    Placing them inside a layout can cause them to be hidden.
+"""
+function snackbar(id, content; color = "error", timeout = 6000)
+    (UIElement("""
+    <v-snackbar
+          v-model="$id"
+          color = "$color"
+          :timeout="$timeout">"""),
+    content,
+    UIElement("""<v-btn
+            text
+            @click="$id = false"
+          >
+            Close
+          </v-btn>
+        </v-snackbar>""",
     "$id: false"))
 end
 
