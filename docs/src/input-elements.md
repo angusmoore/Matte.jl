@@ -1,12 +1,27 @@
 # Input elements
 
+## Text input
+
 ```@docs
-slider
 text_input
-number_input
 ```
 
+## Numeric inputs
+
+```@docs
+number_input
+slider
+```
+
+`number_input` provides more flexibility, as sliders can only offer integers.
+
+!!! note
+    `number_input` will return an empty string if the user deletes _all_ of the digits in the
+    input box. This may cause your server-side functions to fail if they assume a number
+    will be returned.
+
 ## Selecting among options
+
 ```@docs
 select
 ```
