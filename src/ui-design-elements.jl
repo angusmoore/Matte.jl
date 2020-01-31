@@ -108,3 +108,29 @@ function tooltip(content, tip)
     </v-tooltip>
     """))
 end
+
+"""
+    visible_if(id, content...)
+
+Create a span that only shows `content` if the variable `id` is `true`. As with all Matte
+logic `id` should be a function defined in the `Server` module of your app.
+"""
+function visible_if(id, content...)
+    (UIElement("""<span v-if = "$id">""", "$id: false"),
+    content...,
+    UIElement("</span>"))
+end
+
+"""
+    circular_loader(width = 3, color = "primary")
+
+Add a circular spinning loading animation to your UI. Best wrapped in a `visible_if` so you
+can hide it once the relevant content has finished loading.
+"""
+function circular_loader(width::Integer = 3, color::AbstractString = "primary")
+    UIElement("""<v-progress-circular
+      :width="$width"
+      color="$color"
+      indeterminate
+    ></v-progress-circular>""")
+end

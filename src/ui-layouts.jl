@@ -140,19 +140,6 @@ function footer(content, bgcolor = "grey lighten-4")
     </v-footer>"""))
 end
 
-
-"""
-    visible_if(id, content...)
-
-Create a span that only shows `content` if the variable `id` is `true`. As with all Matte
-logic `id` should be a function defined in the `Server` module of your app.
-"""
-function visible_if(id, content...)
-    (UIElement("""<span v-if = "$id">""", "$id: false"),
-    content...,
-    UIElement("</span>"))
-end
-
 """
     div(content...)
 
