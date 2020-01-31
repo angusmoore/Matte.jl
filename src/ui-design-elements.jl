@@ -100,7 +100,8 @@ Visibility of the snackbar is controlled by `id`, which should be a boolean. A c
 case is to define this output function to have sole input from a button, and simply return
 whether the button has been clicked.
 
-`content` can be dynamically set.
+`content` can be dynamically set. Snackbars are small, so you should only include (raw) text
+i.e. (`text_output`) in the content, not other `UIElement`s.
 
 If you need to include multiple elements inside `content`, wrap them as a tuple.
 
