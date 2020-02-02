@@ -30,3 +30,33 @@ custom_grid_row
 custom_grid_column
 custom_card
 ```
+
+## Customising look and feel
+
+### Customer header
+
+```@docs
+header
+```
+
+The `header` function allows you to define your own, custom HTML, header. The `content` in a
+`header` is wrapped inside a `<v-app-bar>` tag. You can include any valid elements inside a
+`<v-app-bar>` that are understood by [Vuetify](https://vuetifyjs.com/). This gives you a lot
+of flexibility, but has a steeper learning curve. As an example, here's how to add a title
+and some navigation icons to your custom header:
+```
+function ui() {
+  header(
+    "<v-toolbar-title>Page title</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>",
+    "deep-purple accent-4",
+    true  
+  )
+}
+```

@@ -8,7 +8,7 @@ export sidebar_layout, side_panel, main_panel
 export tabs_layout, tab_panel
 export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
 export expansion_panel_list, expansion_panel
-export footer
+export header, footer
 
 # style elements
 export p, h1, h2, h3, br, dialog, snackbar, div, span, visible_if, circular_loader

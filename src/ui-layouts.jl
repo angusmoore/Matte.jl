@@ -188,3 +188,22 @@ function expansion_panel(header, content)
         (tag_wrap("v-expansion-panel-header", header),
         tag_wrap("v-expansion-panel-content", content)))
 end
+
+"""
+    header(content, color, dark)
+
+Define a custom app bar header. `content` should be html that will be included inside the
+<v-app-bar> tag. See [https://vuetifyjs.com/](Vuetify documentation) for more information (or
+a simple example is included in the Matte documentation).
+"""
+function header(content::AbstractString, color::AbstractString, dark::Bool)
+    UIHeader("""
+    <div>
+    <v-app-bar
+    color="$color"
+    $(dark ? "dark" : "")>
+        $content
+    </v-app-bar>
+    </div>
+    """)
+end
