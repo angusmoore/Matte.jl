@@ -128,3 +128,45 @@ function select(id::AbstractString, label::AbstractString, items::AbstractString
     UIModel(id, "[]")
     UIModel(items_model)
 end
+
+"""
+    checkbox(id, label; default = false)
+"""
+function checkbox(id, label; default = false)
+    UIElement("""
+    <v-checkbox
+      v-model="$id"
+      label="$label"></v-checkbox>"""),
+    UIModel(id, "$default")
+end
+
+quote_wrap_if_string(x::AbstractString) = "'$x'"
+quote_wrap_if_string(x) = x
+
+"""
+    radio(id, values, labels})
+
+"""
+function radio(id::AbstractString, values::Array, labels::Array{<:AbstractString, 1})
+    length(values) != length(labels) && error("`values` and `labels` must have the same length")
+
+    buttons = map((value, label) -> UIElement("""<v-radio label="$label" :value="$(quote_wrap_if_string(value))"></v-radio>"""), values, labels)
+
+    UIElement("""<v-radio-group v-model="$id" :mandatory="false">"""),
+    buttons...,
+    UIElement("</v-radio-group>"),
+    UIModel(id, "null")
+end
+
+"""
+    switch(id, label; default = false)
+"""
+function switch(id, label; default = false)
+    UIElement("""
+    <v-switch
+      v-model="$id"
+      label="$label"
+    ></v-switch>
+    """),
+  UIModel(id, "$default")
+end

@@ -7,7 +7,6 @@ end
 convert_html(content::AbstractUIHTMLElement) = content.html
 
 function convert_html(content::NTuple{N, E}) where {N, E <: AbstractUIHTMLElement}
-    println(content)
     join(map(c -> convert_html(c), content), "")
 end
 
