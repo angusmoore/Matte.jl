@@ -88,8 +88,8 @@ function dialog(id, title, content, width = 500)
         </v-card-actions>
       </v-card>
     </v-dialog>
-    """,
-    "$id: false"))
+    """),
+    UIModel(id, "false"))
 end
 
 """
@@ -125,8 +125,8 @@ function snackbar(id, content; color = "error", timeout = 6000)
           >
             Close
           </v-btn>
-        </v-snackbar>""",
-    "$id: false"))
+        </v-snackbar>"""),
+    UIModel(id, "false"))
 end
 
 """

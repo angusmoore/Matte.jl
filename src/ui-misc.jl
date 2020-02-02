@@ -1,10 +1,66 @@
-struct UIElement
-    html::AbstractString
-    model::Union{AbstractString, Missing}
+abstract type AbstractUIElement end
+abstract type AbstractUIHTMLElement <: AbstractUIElement end
+
+struct UIElement <: AbstractUIHTMLElement
+    html::String
 end
 
-UIElement(html::AbstractString) = UIElement(html, missing)
-UIElement(el::UIElement) = el
-UIElement(els::Tuple) = unroll(els)
+struct UIHeader <: AbstractUIHTMLElement
+    html::String
+end
 
-tag_wrap(tag, contents...) = (UIElement("<$tag>"), UIElement(contents), UIElement("</$tag>"))
+struct UIFooter <: AbstractUIHTMLElement
+    html::String
+end
+
+struct UIModel <: AbstractUIElement
+    id::String
+    default::String
+end
+
+UIHeader(el::UIElement) = el
+UIFooter(el::UIElement) = el
+UIModel(el::UIModel) = el
+
+UIHeader(els::Tuple) = unroll(els)
+UIFooter(els::Tuple) = unroll(els)
+UIModel(els::Tuple) = unroll(els)
+
+tag_wrap(tag, contents...) = (UIElement("<$tag>"), contents, UIElement("</$tag>"))
+
+extract_uitype(t::Type, el::AbstractUIElement) = el
+
+function extract_uitype(t::Type, content::Tuple)
+    out = ()
+    for c in content
+        if typeof(c) <: t
+            out = (out..., c)
+        end
+    end
+    out
+end
+
+convert_uielement(t::Type, el::UIElement) = t(el.html)
+
+function convert_uielement(t::Type, content::NTuple{N, UIElement}) where N
+    map(c -> convert_uielement(t, c), content)
+end
+
+function unroll(content::Tuple)
+    out = ()
+    for c in content
+        if typeof(c) <: AbstractUIElement
+            out = (out..., c)
+        elseif typeof(c) <: AbstractString
+            out = (out..., UIElement(c))
+        else
+            out = (out..., unroll(c)...)
+        end
+    end
+    out
+end
+
+function unroll(content::String)
+    # Hit if UI is just a string
+    UIElement(content)
+end

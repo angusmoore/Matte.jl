@@ -82,7 +82,8 @@ end
 
 struct TabPanel
     title::String
-    content::Union{UIElement, NTuple{N, UIElement}} where N
+    content::NTuple{N, UIElement} where N
+    model::NTuple{M, UIModel} where M
 end
 
 """
@@ -118,7 +119,14 @@ Define a panel for use in a tab layout
 `tab_panel` should only be used as input to a `tabs_layout`
 """
 function tab_panel(title, content)
-    TabPanel(title, unroll(content))
+    content = unroll(content)
+    length(extract_uitype(UIFooter, content)) > 0 && error("Tab panels cannot contain a `footer`")
+    length(extract_uitype(UIHeader, content)) > 0 && error("Tab panels cannot contain a `header`")
+
+    model = extract_uitype(UIModel, content)
+    content = extract_uitype(UIElement, content)
+
+    TabPanel(title, content, model)
 end
 
 """
@@ -128,14 +136,13 @@ Add a footer to your UI, containing `content`. If you need to include multiple e
 inside `content`, wrap them as a tuple.
 """
 function footer(content, bgcolor = "grey lighten-4")
-    (UIElement("""<v-footer
-      absolute
+    (UIFooter("""<v-footer
       color = "$bgcolor">
       <v-col
         class="text-center"
         cols="12">"""),
-    content,
-    UIElement("""
+    convert_uielement(UIFooter,unroll(content)),
+    UIFooter("""
       </v-col>
     </v-footer>"""))
 end

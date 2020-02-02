@@ -1,52 +1,46 @@
-retrieve_content(content::UIElement) = content.html
+ui_models(m::UIModel) = "$(m.id): $(m.default)"
 
-function retrieve_content(content::NTuple{N, UIElement}) where N
-    out = ""
-    for c in content
-        out *= c.html
-    end
-    out
+function ui_models(content::NTuple{N, UIModel}) where N
+    join(["error_snackbar: false,\nmatte_error_msg: \"\"", [ui_models(x) for x in content]...], ",\n")
 end
 
-ui_input_js(content::UIElement) = content.model
+convert_html(content::AbstractUIHTMLElement) = content.html
 
-function ui_input_js(content::NTuple{N, UIElement}) where N
-    join(["error_snackbar: false,\nmatte_error_msg: \"\"", skipmissing([x.model for x in content])...], ",\n")
+function convert_html(content::NTuple{N, E}) where {N, E <: AbstractUIHTMLElement}
+    println(content)
+    join(map(c -> convert_html(c), content), "")
 end
 
-function unroll(content::Tuple)
-    out = ()
-    for c in content
-        if typeof(c) <: UIElement
-            out = (out..., c)
-        elseif typeof(c) <: AbstractString
-            out = (out..., UIElement(c))
-        else
-            out = (out..., unroll(c)...)
-        end
-    end
-    out
-end
+function default_header(title)
+    UIHeader("""
+<div>
+<v-app-bar
+color="indigo darken-4"
+dark>
 
-function template_content(title, content)
-"""
-<v-app id="inspire">
-    <div>
-        <v-app-bar
-        color="indigo darken-4"
-        dark>
         <v-toolbar-title>
             $title
         </v-toolbar-title>
         <v-spacer></v-spacer>
-    </div>
 </v-app-bar>
-<v-content>
-$(retrieve_content(unroll(content)))
-</v-content>"""
+</div>
+    """)
 end
 
 function generate_template(title, ui, server_module)
+    unrolled = unroll(ui())
+    header = extract_uitype(UIHeader, unrolled)
+    footer = extract_uitype(UIFooter, unrolled)
+    content = extract_uitype(UIElement, unrolled)
+    models = extract_uitype(UIModel, unrolled)
+
+    if length(header) == 0
+        header = default_header(title)
+    end
+
+    header = convert_html(header)
+    footer = convert_html(footer)
+    content = convert_html(content)
 """
 <!DOCTYPE html>
 <html>
@@ -59,21 +53,24 @@ function generate_template(title, ui, server_module)
 </head>
 <body>
 <div id="app">
-$(template_content(title, ui()))
-
-<v-snackbar
-      v-model="error_snackbar"
-      color = "error"
-      :timeout="10000"
-    >
-      {{ matte_error_msg }}
-      <v-btn
-        text
-        @click="error_snackbar = false"
-      >
-        Close
-      </v-btn>
+<v-app>
+$header
+<v-content>
+$content
+</v-content>
+$footer
+    <v-snackbar
+        v-model="error_snackbar"
+        color = "error"
+        :timeout="10000">
+            {{ matte_error_msg }}
+            <v-btn
+            text
+            @click="error_snackbar = false">
+                Close
+            </v-btn>
     </v-snackbar>
+</v-app>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
@@ -83,7 +80,7 @@ new Vue({
   el: '#app',
   vuetify: new Vuetify(),
   data: {
-    $(ui_input_js(unroll(ui())))
+    $(ui_models(models))
   },
   $(generate_output_js(server_module))
 })
