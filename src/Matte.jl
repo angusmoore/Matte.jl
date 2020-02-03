@@ -2,7 +2,7 @@ module Matte
 
 import Genie, Genie.Router
 import Base64: base64encode
-import Pkg, Plots
+import DataFrames, Pkg, Plots, Tables
 
 # layouts
 export sidebar_layout, side_panel, main_panel
@@ -20,7 +20,7 @@ export slider, text_input, number_input, button, floating_action_button, tooltip
 export time_picker, select, checkbox, switch, radio
 
 # output elements
-export text_output, plots_output
+export text_output, plots_output, datatable_output
 
 # functions and helpers
 export run_app
