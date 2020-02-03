@@ -23,7 +23,7 @@ end
 run_app(TestAPI, async = true)
 
 res = HTTP.request("POST", "http://localhost:8000/matte/api", [("Content-Type", "application/json")],
-       """{"id": "foo", "input" : {"a" : 1}}""")
+       """{"id": "foo", "session_id": "test_session", "input" : {"a" : 1}}""")
 
 @test res.status == 200
 @test String(res.body) == "{\"foo\":2}"

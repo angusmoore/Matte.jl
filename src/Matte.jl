@@ -2,7 +2,9 @@ module Matte
 
 import Genie, Genie.Router
 import Base64: base64encode
-import DataFrames, Pkg, Plots, Tables
+import DataFrames, Dates, Pkg, Plots, Tables, UUIDs
+
+import Base: getproperty, setproperty!
 
 # layouts
 export sidebar_layout, side_panel, main_panel
@@ -33,6 +35,7 @@ include("ui-input-elements.jl")
 include("ui-layouts.jl")
 include("ui-output-elements.jl")
 include("generate-js.jl")
+include("session.jl")
 include("template.jl")
 include("run.jl")
 include("backend.jl")

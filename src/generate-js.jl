@@ -13,14 +13,17 @@ function reverse_dependency_tree(server_module)
             end
         end
     end
-    dependencies
+
+    filter(k -> first(k) != "stateful_vars", dependencies)
 end
 
 function dependency_tree(server_module)
     output_fns = module_functions(server_module)
     dependencies = Dict{String, Array{String, 1}}()
     for fn in output_fns
-        dependencies[string(fn)] = string.(argument_names(get_handler(fn, server_module)))
+        args = argument_names(get_handler(fn, server_module))
+        args = filter(x -> x != :stateful_vars, args)
+        dependencies[string(fn)] = string.(args)
     end
     dependencies
 end
@@ -60,7 +63,8 @@ function fetch_method_js()
     fetch_result: function(id, inputs) {
         axios.post("http://localhost:8000/matte/api", {
             id: id,
-            input: inputs
+            input: inputs,
+            session_id: this.session_id
         }).then(response => {
                 if (response.data.hasOwnProperty("matte_error_msg") && !(response.data["matte_error_msg"] === null)) {
                     this.matte_error_msg = response.data["matte_error_msg"]

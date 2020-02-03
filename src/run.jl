@@ -18,6 +18,7 @@ See the `getting started` guide for help on how to define your app.
 function run_app(app::Module; async = false)
     server = app.Server
     ui = app.ui
+    sessions = create_sessions(app)
     Genie.Router.route("/") do
         generate_template(app.title, ui, server)
     end
@@ -25,7 +26,8 @@ function run_app(app::Module; async = false)
     Genie.Router.route("/matte/api", method = Genie.Router.POST) do
         json_request = Genie.Requests.jsonpayload()
         if haskey(json_request, "id")
-            handle_request(json_request["id"], json_request["input"], server)
+            session = sessions[json_request["session_id"]]
+            handle_request(json_request["id"], json_request["input"], server, session)
         end
     end
 

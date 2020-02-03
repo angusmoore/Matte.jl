@@ -1,7 +1,7 @@
 ui_models(m::UIModel) = "$(m.id): $(m.default)"
 
 function ui_models(content::NTuple{N, UIModel}) where N
-    join(["error_snackbar: false,\nmatte_error_msg: \"\"", [ui_models(x) for x in content]...], ",\n")
+    join(["session_id: \"$(UUIDs.uuid1())\",\nerror_snackbar: false,\nmatte_error_msg: \"\"", [ui_models(x) for x in content]...], ",\n")
 end
 
 convert_html(content::AbstractUIHTMLElement) = content.html

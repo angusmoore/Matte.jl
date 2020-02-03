@@ -25,3 +25,7 @@ end
 @testset "Reflection" begin
     include("test-reflection.jl")
 end
+
+@testset "Sessions" begin
+    include("test-session.jl")
+end
