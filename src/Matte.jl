@@ -6,6 +6,7 @@ import Pkg
 # layouts
 export sidebar_layout, side_panel, main_panel
 export tabs_layout, tab_panel
+export footer_control_layout, content_panel, control_panel
 export custom_grid_layout, custom_grid_row, custom_grid_column, custom_card
 export expansion_panel_list, expansion_panel
 export header, footer

@@ -130,24 +130,6 @@ function tab_panel(title, content)
 end
 
 """
-    footer(content, bgcolor = "grey lighten-4")
-
-Add a footer to your UI, containing `content`. If you need to include multiple elements
-inside `content`, wrap them as a tuple.
-"""
-function footer(content, bgcolor = "grey lighten-4")
-    (UIFooter("""<v-footer
-      color = "$bgcolor">
-      <v-col
-        class="text-center"
-        cols="12">"""),
-    convert_uielement(UIFooter,unroll(content)),
-    UIFooter("""
-      </v-col>
-    </v-footer>"""))
-end
-
-"""
     div(content...)
 
 Create an html `<div>` and wrap `content` in it
@@ -206,4 +188,49 @@ function header(content::AbstractString, color::AbstractString, dark::Bool)
     </v-app-bar>
     </div>
     """)
+end
+
+"""
+    footer(content, bgcolor = "grey lighten-4")
+
+Add a footer to your UI, containing `content`. If you need to include multiple elements
+inside `content`, wrap them as a tuple.
+"""
+function footer(content, bgcolor = "grey lighten-4")
+    (UIFooter("""<v-footer
+      color = "$bgcolor">
+      <v-col
+        class="text-center"
+        cols="12">"""),
+    convert_uielement(UIFooter,unroll(content)),
+    UIFooter("""
+      </v-col>
+    </v-footer>"""))
+end
+
+function content_panel(content...)
+    content
+end
+
+function control_panel(content...)
+    content
+end
+
+function footer_control_layout(main_panel, control_panel)
+    UIElement("""<v-container><v-row><v-col cols = "12"><v-card><v-card-text>"""),
+    main_panel,
+    UIElement("</v-card-text></v-card></v-col></v-row></v-container>"),
+    UIFooter("""<v-footer color = "white" fixed>
+    <v-container><v-row><v-col
+        class="text-center"
+        cols="12">
+    <v-card>
+    <v-card-text>"""),
+    convert_uielement(UIFooter,unroll(control_panel)),
+    UIFooter("""
+    </v-card-text>
+    </v-card>
+    </v-col>
+    </v-row></v-container>
+    </v-footer>""")
 end

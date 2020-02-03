@@ -20,6 +20,21 @@ tabs_layout
 tab_panel
 ```
 
+## Control panel in the footer
+
+```@docs
+footer_control_layout
+content_panel
+control_panel
+```
+
+Similar to a `sidebar_layout` except that the control panel appears at the bottom, underneath
+the main content/output of your app.
+
+!!! note
+  The layout of `footer_control_layout` isn't working for apps with large amounts of content
+  in the `content_panel`; the control panel obscures scrolling down.
+
 ## Custom layouts
 
 Functions to create custom flexgrid layouts using Vuetify's built-in container layout.

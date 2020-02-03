@@ -40,9 +40,10 @@ function extract_uitype(t::Type, content::Tuple)
     out
 end
 
-convert_uielement(t::Type, el::UIElement) = t(el.html)
+convert_uielement(t::Type, el::AbstractUIHTMLElement) = t(el.html)
+convert_uielement(t::Type, el::UIModel) = el # no op
 
-function convert_uielement(t::Type, content::NTuple{N, UIElement}) where N
+function convert_uielement(t::Type, content::Tuple)
     map(c -> convert_uielement(t, c), content)
 end
 
