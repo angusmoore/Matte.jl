@@ -4,7 +4,8 @@ end
 
 function module_functions(server_module)
     output_fns = names(server_module, all = true)
-    filter(is_user_defined, output_fns)[2:end]
+    output_fns = filter(is_user_defined, output_fns)[2:end]
+    filter(f -> length(methods(f)) > 0, output_fns) # Drop functions with no methods. This happens when using Revise if functions are deleted
 end
 
 # this works for closures
