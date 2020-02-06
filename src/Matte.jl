@@ -15,7 +15,7 @@ export expansion_panel_list, expansion_panel
 export header, footer
 
 # style elements
-export p, h1, h2, h3, br, dialog, snackbar, div, span, visible_if, circular_loader
+export p, h1, h2, h3, br, dialog, snackbar, div, span, show_if, circular_loader
 
 # input elements
 export slider, text_input, number_input, button, floating_action_button, tooltip, date_picker
