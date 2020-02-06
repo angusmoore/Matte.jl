@@ -115,7 +115,11 @@ element if only one is selected. The type that is returned depends on the types 
 in the select list.
 """
 function select(id::AbstractString, label::AbstractString, items::AbstractString, multiple::Bool = false, autocomplete::Bool = false)
-    items_model = occursin("[", items) ? "" : ",\n$items: []"
+    if occursin("[", items)
+        items_model = ()
+    else
+        items_model = UIModel(items, "[]")
+    end
     tag = autocomplete ? "v-autocomplete" : "v-select"
     UIElement("""
     <$tag
@@ -125,8 +129,8 @@ function select(id::AbstractString, label::AbstractString, items::AbstractString
             label="$label"
             filled
             $(multiple ? "multiple" : "")></$tag>"""),
-    UIModel(id, "[]")
-    UIModel(items_model)
+    UIModel(id, "[]"),
+    items_model
 end
 
 """
