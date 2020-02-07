@@ -18,6 +18,11 @@ struct UIModel <: AbstractUIElement
     default::String
 end
 
+struct UIWatch <: AbstractUIElement
+    id::String
+    code::String
+end
+
 UIHeader(el::UIElement) = el
 UIFooter(el::UIElement) = el
 UIModel(el::UIModel) = el

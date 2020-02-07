@@ -118,7 +118,7 @@ function selector(id::AbstractString, label::AbstractString, items::AbstractStri
     if occursin("[", items)
         items_model = ()
     else
-        items_model = UIModel(items, "[]")
+        items_model = UIModel(items, "[]"), UIWatch(items, "this.$id = []")
     end
     tag = autocomplete ? "v-autocomplete" : "v-select"
     UIElement("""

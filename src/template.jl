@@ -1,9 +1,3 @@
-ui_models(m::UIModel) = "$(m.id): $(m.default)"
-
-function ui_models(content::NTuple{N, UIModel}) where N
-    join(["session_id: \"$(UUIDs.uuid1())\",\nerror_snackbar: false,\nmatte_error_msg: \"\"", [ui_models(x) for x in content]...], ",\n")
-end
-
 convert_html(content::AbstractUIHTMLElement) = content.html
 
 function convert_html(content::NTuple{N, E}) where {N, E <: AbstractUIHTMLElement}
@@ -32,6 +26,7 @@ function generate_template(title, ui, server_module)
     footer = extract_uitype(UIFooter, unrolled)
     content = extract_uitype(UIElement, unrolled)
     models = extract_uitype(UIModel, unrolled)
+    watch = extract_uitype(UIWatch, unrolled)
 
     if length(header) == 0
         header = default_header(title)
@@ -79,9 +74,9 @@ g = new Vue({
   el: '#app',
   vuetify: new Vuetify(),
   data: {
-    $(ui_models(models))
+    $(js_models(models))
   },
-  $(generate_output_js(server_module))
+  $(methods_mount_watch(server_module, watch))
 })
 </script>
 </body>
