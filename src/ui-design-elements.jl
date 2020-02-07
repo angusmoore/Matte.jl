@@ -164,6 +164,20 @@ function show_if(id, content...)
 end
 
 """
+    hide_if(id, content...)
+
+Companion to `show_if`. Creates a span that only shows `content` if the variable `id` is
+`false`. As with all Matte logic `id` should be a function defined in the `Server` module
+of your app.
+"""
+function hide_if(id, content...)
+    UIElement("""<span v-if = "!$id">"""),
+    UIModel(id, "false"),
+    content,
+    UIElement("</span>")
+end
+
+"""
     circular_loader(width = 3, color = "primary")
 
 Add a circular spinning loading animation to your UI. Best wrapped in a `show_if` so you
