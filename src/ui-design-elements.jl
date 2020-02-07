@@ -157,9 +157,10 @@ Create a span that only shows `content` if the variable `id` is `true`. As with 
 logic `id` should be a function defined in the `Server` module of your app.
 """
 function show_if(id, content...)
-    (UIElement("""<span v-if = "$id">""", "$id: false"),
-    content...,
-    UIElement("</span>"))
+    UIElement("""<span v-if = "$id">"""),
+    UIModel(id, "false"),
+    content,
+    UIElement("</span>")
 end
 
 """
