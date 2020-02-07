@@ -114,7 +114,7 @@ Returns either an Array (if no or multiple elements are selected) or the type of
 element if only one is selected. The type that is returned depends on the types of the elements
 in the select list.
 """
-function select(id::AbstractString, label::AbstractString, items::AbstractString, multiple::Bool = false, autocomplete::Bool = false)
+function selector(id::AbstractString, label::AbstractString, items::AbstractString, multiple::Bool = false, autocomplete::Bool = false)
     if occursin("[", items)
         items_model = ()
     else
