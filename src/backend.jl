@@ -28,6 +28,10 @@ function render_response(response::Union{DataFrames.AbstractDataFrame, Tables.Ta
     [header, data...]
 end
 
+function render_response(response::AbstractArray)
+    response
+end
+
 function handle_request(id, input_dict, server_module, stateful_vars)
     fn = get_handler(id, server_module)
     names = argument_names(fn)
@@ -54,8 +58,9 @@ function handle_request(id, input_dict, server_module, stateful_vars)
         response = render_response(response)
         Genie.Renderer.Json.json(Dict(id => response))
     catch e
-        @error e
         msg = sprint(showerror, e)
+        @error string(msg, "\nError occurred calling function `$fn` with arguments: `$(args...)`")
+
         Genie.Renderer.Json.json(Dict("matte_error_msg" => msg))
     end
 end
