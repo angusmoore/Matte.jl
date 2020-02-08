@@ -105,7 +105,7 @@ function methods_mount_watch(server_module, watch)
 
     methods = [fetch_update_methods(input_id, outputs_affected, dep_tree) for (input_id, outputs_affected) in rev_dep]
     pushfirst!(methods, fetch_method_js())
-
+    
     watches = watch_functions(rev_dep, watch)
 
     mounts = ["this.fetch_result(\"$output_id\", {$(jsonify_inputs(dependencies, missing))})" for (output_id, dependencies) in dep_tree]

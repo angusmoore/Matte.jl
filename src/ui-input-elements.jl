@@ -152,7 +152,7 @@ quote_wrap_if_string(x) = x
 """
     radio(id, values, labels)
 
-Give users a set of options to choose from exclusively.
+Give users a set of options to choose from (exclusively).
 
 Unlike a select, all radio options are displayed (not a drop down list), and cannot be
 dynamic.
