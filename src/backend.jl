@@ -32,7 +32,7 @@ function render_response(response::AbstractArray)
     response
 end
 
-function handle_request(id, input_dict, server_module, stateful_vars)
+function handle_request(id, input_dict, server_module, stateful_vars, session_id)
     fn = get_handler(id, server_module)
     names = argument_names(fn)
     args = ()

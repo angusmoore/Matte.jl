@@ -83,18 +83,13 @@ end
 function fetch_method_js()
     """
     fetch_result: function(id, inputs) {
-        axios.post("http://localhost:8000/matte/api", {
-            id: id,
-            input: inputs,
-            session_id: this.session_id
-        }).then(response => {
-                if (response.data.hasOwnProperty("matte_error_msg") && !(response.data["matte_error_msg"] === null)) {
-                    this.matte_error_msg = response.data["matte_error_msg"]
-                    this.error_snackbar = true
-                } else if (!(response.data[id] === null)) {
-                    this[id] = response.data[id]
-                }
-            })
+        payload = JSON.stringify({
+            'id': id,
+            'input': inputs,
+            'session_id': this.session_id
+        })
+        alert(payload)
+        Genie.WebChannels.sendMessageTo('matte', 'api', payload)
     }
     """
 end
@@ -105,7 +100,7 @@ function methods_mount_watch(server_module, watch)
 
     methods = [fetch_update_methods(input_id, outputs_affected, dep_tree) for (input_id, outputs_affected) in rev_dep]
     pushfirst!(methods, fetch_method_js())
-    
+
     watches = watch_functions(rev_dep, watch)
 
     mounts = ["this.fetch_result(\"$output_id\", {$(jsonify_inputs(dependencies, missing))})" for (output_id, dependencies) in dep_tree]
