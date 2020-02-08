@@ -17,6 +17,10 @@ UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [compat]
 julia = "^1"
+DataFrames = "^0.20.0"
+Genie = "^0.25.6"
+Plots = "^0.28.4"
+Tables = "^0.2.11"
 
 [extras]
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
