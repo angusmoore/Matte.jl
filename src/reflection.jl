@@ -1,3 +1,33 @@
+
+function reverse_dependency_tree(server_module)
+    output_fns = module_functions(server_module)
+    # Map from input variables to the outputs they affect
+    dependencies = Dict{String, Array{String, 1}}()
+    for fn in output_fns
+        inputs = argument_names(get_handler(fn, server_module))
+        for input_var in string.(inputs)
+            if haskey(dependencies, input_var)
+                push!(dependencies[input_var], string(fn))
+            else
+                dependencies[input_var] = [string(fn)]
+            end
+        end
+    end
+
+    filter(k -> first(k) != "stateful_vars", dependencies)
+end
+
+function dependency_tree(server_module)
+    output_fns = module_functions(server_module)
+    dependencies = Dict{String, Array{String, 1}}()
+    for fn in output_fns
+        args = argument_names(get_handler(fn, server_module))
+        args = filter(x -> x != :stateful_vars, args)
+        dependencies[string(fn)] = string.(args)
+    end
+    dependencies
+end
+
 function is_user_defined(symbol)
     string(symbol)[1] != '#' && symbol != :eval && symbol != :include
 end

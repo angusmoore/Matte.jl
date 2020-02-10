@@ -32,7 +32,7 @@ function render_response(response::AbstractArray)
     response
 end
 
-function handle_request(id, input_dict, server_module, stateful_vars, session_id)
+function handle_request(id, input_dict, server_module, stateful_vars)
     fn = get_handler(id, server_module)
     names = argument_names(fn)
     args = ()
@@ -56,11 +56,11 @@ function handle_request(id, input_dict, server_module, stateful_vars, session_id
     try
         response = fn(args...)
         response = render_response(response)
-        Genie.Renderer.Json.json(Dict(id => response))
+        JSON.json(Dict("id" => id, "value" => response))
     catch e
         msg = sprint(showerror, e)
         @error string(msg, "\nError occurred calling function `$fn` with arguments: `$(args...)`")
 
-        Genie.Renderer.Json.json(Dict("matte_error_msg" => msg))
+        JSON.json(Dict("matte_error_msg" => msg))
     end
 end

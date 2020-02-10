@@ -28,6 +28,9 @@ function generate_template(title, ui, server_module)
     models = extract_uitype(UIModel, unrolled)
     watch = extract_uitype(UIWatch, unrolled)
 
+    dep_tree = dependency_tree(server_module)
+    rev_dep = reverse_dependency_tree(server_module)
+
     if length(header) == 0
         header = default_header(title)
     end
@@ -44,9 +47,7 @@ function generate_template(title, ui, server_module)
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <title>$title</title>
-""" *
-Genie.Assets.channels_support() *
-"""
+<script src="/__/matte.js"></script>
 </head>
 <body>
 <div id="app">
@@ -69,33 +70,11 @@ $footer
     </v-snackbar>
 </v-app>
 </div>
-<script>
-//window.parse_payload = function(response) {
-//    if (response.startsWith('{') && response.endsWith('}')) {
-//        response = JSON.parse(response)
-//        if (response.data.hasOwnProperty("matte_error_msg") && !(response.data["matte_error_msg"] === null)) {
-//            this.matte_error_msg = response.data["matte_error_msg"]
-//            this.error_snackbar = true
-//        } else if (!(response.data[id] === null)) {
-//            this[id] = response.data[id]
-//        }
-//    } else {
-//        console.log(response)
-//    }
-//}
-</script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-g = new Vue({
-  el: '#app',
-  vuetify: new Vuetify(),
-  data: {
-    $(js_models(models))
-  },
-  $(methods_mount_watch(server_module, watch))
-})
+session_id = "$(UUIDs.uuid1())";
+$(vue_js(rev_dep, dep_tree, models, watch))
 </script>
 </body>
 </html>

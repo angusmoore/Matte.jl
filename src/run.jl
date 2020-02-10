@@ -26,19 +26,20 @@ function run_app(app::Module; async = false)
 
     genie_config()
 
+    establish_static_routes()
+
     Genie.Router.route("/") do
         generate_template(app.title, ui, server)
     end
 
     Genie.Router.channel("/matte/api") do
-        json_request = JSON.parse(Genie.Router.@params(:payload))
-        channel_id = Genie.Router.@params(:WS_CLIENT)
-        println(channel_id)
+        json_request = Genie.Router.@params(:payload)
+        #channel_id = Genie.Router.@params(:WS_CLIENT)
 
-        #=if haskey(json_request, "id")
+        if haskey(json_request, "id")
             session = sessions[json_request["session_id"]]
-            handle_request(json_request["id"], json_request["input"], server, session, channel_id)
-        end=#
+            handle_request(json_request["id"], json_request["input"], server, session)
+        end
     end
 
     Genie.AppServer.startup(async = async)
