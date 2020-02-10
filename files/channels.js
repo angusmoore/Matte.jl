@@ -74,6 +74,7 @@ function subscribe() {
 
 function unsubscribe() {
   Genie.WebChannels.sendMessageTo(window.Genie.Settings.webchannels_default_route, window.Genie.Settings.webchannels_unsubscribe_channel);
+  g.matte_notconnected_overlay = true;
 };
 
 // Matte.jl functions
@@ -115,6 +116,7 @@ Matte.open_channel = function() {
 
   Genie.WebChannels.closeHandlers.push(function(event) {
     console.log("Server closed WebSocket connection");
+    g.matte_notconnected_overlay = true;
   });
 
   Genie.WebChannels.openHandlers.push(function(event) {

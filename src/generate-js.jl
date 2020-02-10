@@ -14,7 +14,7 @@ end
 vue_models(m::UIModel) = "$(m.id): $(m.default)"
 
 function vue_models(content::NTuple{N, UIModel}) where N
-    join(["error_snackbar: false,\nmatte_error_msg: \"\"", [vue_models(x) for x in content]...], ",\n")
+    join(["matte_notconnected_overlay: true,\nerror_snackbar: false,\nmatte_error_msg: \"\"", [vue_models(x) for x in content]...], ",\n")
 end
 
 function fetch_update_methods(input_id, reverse_dependencies, dependency_tree)
@@ -55,6 +55,7 @@ function on_connected(dep_tree)
     mount_calls = join(["Matte.request_update(\"$output_id\", {$(jsonify_inputs(dependencies, missing))})" for (output_id, dependencies) in dep_tree], ";\n")
     """
     on_connected: function() {
+        this.matte_notconnected_overlay = false;
         $mount_calls
     }"""
 end

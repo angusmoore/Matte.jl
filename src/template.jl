@@ -68,6 +68,14 @@ $footer
                 Close
             </v-btn>
     </v-snackbar>
+    <v-overlay :value="matte_notconnected_overlay">
+        <div class="text-center">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+        </div>
+    </v-overlay>
 </v-app>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
