@@ -28,6 +28,9 @@ function generate_template(title, ui, server_module)
     models = extract_uitype(UIModel, unrolled)
     watch = extract_uitype(UIWatch, unrolled)
 
+    dep_tree = dependency_tree(server_module)
+    rev_dep = reverse_dependency_tree(server_module)
+
     if length(header) == 0
         header = default_header(title)
     end
@@ -44,6 +47,7 @@ function generate_template(title, ui, server_module)
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <title>$title</title>
+<script src="/__/matte.js"></script>
 </head>
 <body>
 <div id="app">
@@ -64,20 +68,21 @@ $footer
                 Close
             </v-btn>
     </v-snackbar>
+    <v-overlay :value="matte_notconnected_overlay">
+        <div class="text-center">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+        </div>
+    </v-overlay>
 </v-app>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-g = new Vue({
-  el: '#app',
-  vuetify: new Vuetify(),
-  data: {
-    $(js_models(models))
-  },
-  $(methods_mount_watch(server_module, watch))
-})
+session_id = "$(UUIDs.uuid1())";
+$(vue_js(rev_dep, dep_tree, models, watch))
 </script>
 </body>
 </html>

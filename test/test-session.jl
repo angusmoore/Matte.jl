@@ -13,7 +13,7 @@ function ui()
     ))
 end
 
-function register_stateful()
+function register_session_vars()
     Dict(
         :counter => 0
     )
@@ -23,12 +23,12 @@ module Server
 
 import DataFrames
 
-function counter(button, stateful_vars)
+function counter(button, session)
     if button
-        stateful_vars.counter += 1
-        stateful_vars.counter
+        session.counter += 1
+        session.counter
     else
-        stateful_vars.counter
+        session.counter
     end
 end
 
@@ -38,14 +38,64 @@ end
 
 run_app(TestSession, async = true)
 
-res = HTTP.request("POST", "http://localhost:8000/matte/api", [("Content-Type", "application/json")],
-       """{"id": "counter", "session_id": "session1", "input" : {"button" : true}}""")
-@test String(res.body) == "{\"counter\":1}"
+HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+    payload = Dict(
+        :channel => "matte",
+        :message => "api",
+        :payload => Dict(
+            :id => "counter",
+            :session_id => "session1",
+            :input => Dict(
+                :button => true
+            )
+        )
+    )
+    expected = Dict(
+        "id" => "counter",
+        "value" => 1
+    )
+    write(ws, JSON.json(payload))
+    @test JSON.parse(String(readavailable(ws))) == expected
+end
 
-res = HTTP.request("POST", "http://localhost:8000/matte/api", [("Content-Type", "application/json")],
-      """{"id": "counter", "session_id": "session1", "input" : {"button" : true}}""")
-@test String(res.body) == "{\"counter\":2}"
+HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+    payload = Dict(
+        :channel => "matte",
+        :message => "api",
+        :payload => Dict(
+            :id => "counter",
+            :session_id => "session1",
+            :input => Dict(
+                :button => true
+            )
+        )
+    )
+    expected = Dict(
+        "id" => "counter",
+        "value" => 2
+    )
+    write(ws, JSON.json(payload))
+    @test JSON.parse(String(readavailable(ws))) == expected
+end
 
-res = HTTP.request("POST", "http://localhost:8000/matte/api", [("Content-Type", "application/json")],
-       """{"id": "counter", "session_id": "session2", "input" : {"button" : true}}""")
-@test String(res.body) == "{\"counter\":1}"
+HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+    payload = Dict(
+        :channel => "matte",
+        :message => "api",
+        :payload => Dict(
+            :id => "counter",
+            :session_id => "session2",
+            :input => Dict(
+                :button => true
+            )
+        )
+    )
+    expected = Dict(
+        "id" => "counter",
+        "value" => 1
+    )
+    write(ws, JSON.json(payload))
+    @test JSON.parse(String(readavailable(ws))) == expected
+end
+
+stop_app()

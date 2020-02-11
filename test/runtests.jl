@@ -1,6 +1,6 @@
 using Matte
 using Test
-import HTTP
+import JSON, HTTP
 
 @testset "Template" begin
     include("test-template.jl")
