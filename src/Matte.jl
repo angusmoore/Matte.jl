@@ -22,7 +22,7 @@ export slider, text_input, number_input, button, floating_action_button, tooltip
 export time_picker, selector, checkbox, switch, radio
 
 # output elements
-export text_output, plots_output, datatable_output
+export text_output, plots_output, datatable_output, update_output
 
 # functions and helpers
 export run_app
@@ -34,6 +34,7 @@ include("ui-design-elements.jl")
 include("ui-input-elements.jl")
 include("ui-layouts.jl")
 include("ui-output-elements.jl")
+include("ui-update.jl")
 include("generate-js.jl")
 include("session.jl")
 include("static.jl")

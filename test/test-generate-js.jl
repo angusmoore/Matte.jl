@@ -3,7 +3,7 @@ module TestGenerateJS
 using Test
 using Matte
 
-function register_stateful()
+function register_session_vars()
     Dict(
         :counter => 0
     )
@@ -19,9 +19,9 @@ function bar(slider, textinput)
     "textinput $slider"
 end
 
-function baz(slider, stateful_vars)
-    stateful_vars.counter += slider
-    stateful_vars.counter
+function baz(slider, session)
+    session.counter += slider
+    session.counter
 end
 
 end

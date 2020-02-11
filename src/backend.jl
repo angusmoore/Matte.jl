@@ -32,13 +32,13 @@ function render_response(response::AbstractArray)
     response
 end
 
-function handle_request(id, input_dict, server_module, stateful_vars)
+function handle_request(id, input_dict, server_module, session)
     fn = get_handler(id, server_module)
     names = argument_names(fn)
     args = ()
     for argname in names
-        if argname == :stateful_vars
-            args = (args..., stateful_vars)
+        if argname == :session
+            args = (args..., session)
         else
             try
                 args = (args..., input_dict[string(argname)])

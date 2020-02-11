@@ -17,7 +17,7 @@ function ui()
     )
 end
 
-function register_stateful()
+function register_session_vars()
     Dict(
         :count => 0
     )
@@ -25,9 +25,11 @@ end
 
 module Server
 
-function my_count(my_button, stateful_vars)
-    my_button && stateful_vars.count += 1
-    stateful_vars.counts
+function my_count(my_button, session)
+    if my_button
+        session.count += 1
+    end
+    session.count
 end
 
 end

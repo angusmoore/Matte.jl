@@ -34,7 +34,7 @@ function ui()
     footer(p("Powered by Matte.jl; Data from Australian Taxation Office, 2016/17"))
 end
 
-function register_stateful()
+function register_session_vars()
     Dict(
         :plot_loaded => false
     )
@@ -77,13 +77,13 @@ function occupation_list(unit)
     wage_data[keep, Symbol("Occupation")]
 end
 
-function plot_loaded(stateful_vars, calculate_plot)
-    stateful_vars.plot_loaded || calculate_plot
+function plot_loaded(session, calculate_plot)
+    session.plot_loaded || calculate_plot
 end
 
-function plot_output(selected_occs, sex, stateful_vars, calculate_plot)
+function plot_output(selected_occs, sex, session, calculate_plot)
     if calculate_plot && sex != nothing && length(selected_occs) > 0
-        stateful_vars.plot_loaded = true
+        session.plot_loaded = true
         keep_occ = [x in selected_occs for x in wage_data[:, Symbol("Occupation")]]
         keep_sex = wage_data[:, :Sex] .== sex
         plot_data = wage_data[keep_occ .& keep_sex, Symbol("Average taxable income")]

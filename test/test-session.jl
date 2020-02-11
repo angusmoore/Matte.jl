@@ -13,7 +13,7 @@ function ui()
     ))
 end
 
-function register_stateful()
+function register_session_vars()
     Dict(
         :counter => 0
     )
@@ -23,12 +23,12 @@ module Server
 
 import DataFrames
 
-function counter(button, stateful_vars)
+function counter(button, session)
     if button
-        stateful_vars.counter += 1
-        stateful_vars.counter
+        session.counter += 1
+        session.counter
     else
-        stateful_vars.counter
+        session.counter
     end
 end
 

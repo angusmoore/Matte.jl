@@ -5,8 +5,24 @@ function genie_config()
     Genie.config.server_port = 8000
     Genie.config.log_level = Logging.Error
     Genie.config.log_to_file = false
+    Genie.config.webchannels_default_route = "matte"
+    Genie.config.webchannels_subscribe_channel = "subscribe"
+    Genie.config.webchannels_unsubscribe_channel = "unsubscribe"
+    Genie.config.webchannels_autosubscribe = true
 end
 
+function establish_subscription_channels()
+    Genie.Router.channel("/$(Genie.config.webchannels_default_route)/subscribe") do
+        Genie.WebChannels.subscribe(Genie.Requests.wsclient(), Genie.config.webchannels_default_route)
+        "Subscription: OK"
+    end
+
+    Genie.Router.channel("/$(Genie.config.webchannels_default_route)/unsubscribe") do
+        Genie.WebChannels.unsubscribe(Genie.Requests.wsclient(), Genie.config.webchannels_default_route)
+        Genie.WebChannels.unsubscribe_disconnected_clients()
+        "Unsubscription: OK"
+    end
+end
 
 """
     run_app(app; async = false)
@@ -28,16 +44,18 @@ function run_app(app::Module; async = false)
 
     establish_static_routes()
 
+    establish_subscription_channels()
+
     Genie.Router.route("/") do
         generate_template(app.title, ui, server)
     end
 
     Genie.Router.channel("/matte/api") do
         json_request = Genie.Router.@params(:payload)
-        #channel_id = Genie.Router.@params(:WS_CLIENT)
 
         if haskey(json_request, "id")
             session = sessions[json_request["session_id"]]
+            session.genie_wsclient = Genie.Requests.wsclient()
             handle_request(json_request["id"], json_request["input"], server, session)
         end
     end

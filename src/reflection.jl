@@ -14,7 +14,7 @@ function reverse_dependency_tree(server_module)
         end
     end
 
-    filter(k -> first(k) != "stateful_vars", dependencies)
+    filter(k -> first(k) != "session", dependencies)
 end
 
 function dependency_tree(server_module)
@@ -22,7 +22,7 @@ function dependency_tree(server_module)
     dependencies = Dict{String, Array{String, 1}}()
     for fn in output_fns
         args = argument_names(get_handler(fn, server_module))
-        args = filter(x -> x != :stateful_vars, args)
+        args = filter(x -> x != :session, args)
         dependencies[string(fn)] = string.(args)
     end
     dependencies

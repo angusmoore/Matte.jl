@@ -38,8 +38,8 @@ function Base.getindex(sessions::Sessions, session_id::AbstractString)
 end
 
 function create_sessions(app)
-    if :register_stateful in names(app, all = true)
-        fresh_session = app.register_stateful()
+    if :register_session_vars in names(app, all = true)
+        fresh_session = app.register_session_vars()
     else
         fresh_session = Dict()
     end
