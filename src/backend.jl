@@ -46,9 +46,9 @@ function handle_request(id, input_dict, server_module, session)
                 @error "Bad Server module configuration: Server-side function `$id` takes `$argname` as an input, but there is no UI element with that id"
                 msg = sprint(showerror, e)
                 if typeof(e) <: KeyError
-                    return Genie.Renderer.Json.json(Dict("matte_error_msg" => "Bad Server module configuration: Server-side function `$id` takes `$argname` as an input, but there is no UI element with that id"))
+                    return JSON.json(Dict("matte_error_msg" => "Bad Server module configuration: Server-side function `$id` takes `$argname` as an input, but there is no UI element with that id"))
                 else
-                    return Genie.Renderer.Json.json(Dict("matte_error_msg" => msg))
+                    return JSON.json(Dict("matte_error_msg" => msg))
                 end
             end
         end
