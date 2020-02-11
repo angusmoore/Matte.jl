@@ -36,6 +36,7 @@ the UI.
 See the `getting started` guide for help on how to define your app.
 """
 function run_app(app::Module; async = false)
+    sanitycheck(app)
     server = app.Server
     ui = app.ui
     sessions = create_sessions(app)

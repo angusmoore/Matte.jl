@@ -2,6 +2,8 @@ module TestSession
 
 using Matte
 
+title = "Test Session"
+
 function ui()
     sidebar_layout(
         main_panel(

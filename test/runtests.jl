@@ -26,6 +26,10 @@ end
     include("test-reflection.jl")
 end
 
+@testset "Sanity check" begin
+    include("test-sanitycheck.jl")
+end
+
 @testset "Sessions" begin
     include("test-session.jl")
 end
