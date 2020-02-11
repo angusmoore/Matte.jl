@@ -2,8 +2,10 @@ module TestAPI
 
 using Matte
 
+const title = "Test API"
+
 ui = function()
-    tabset_panel((
+    sidebar_layout((
     h1("hi there"),
     slider("slider","Slider",-100,11)
     )
@@ -22,8 +24,24 @@ end
 
 run_app(TestAPI, async = true)
 
-res = HTTP.request("POST", "http://localhost:8000/matte/api", [("Content-Type", "application/json")],
-       """{"id": "foo", "session_id": "test_session", "input" : {"a" : 1}}""")
+HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+    payload = Dict(
+        :channel => "matte",
+        :message => "api",
+        :payload => Dict(
+            :id => "foo",
+            :session_id => "test_session",
+            :input => Dict(
+                :a => 1
+            )
+        )
+    )
+    expected = Dict(
+        "id" => "foo",
+        "value" => 2
+    )
+    write(ws, JSON.json(payload))
+    @test JSON.parse(String(readavailable(ws))) == expected
+end
 
-@test res.status == 200
-@test String(res.body) == "{\"foo\":2}"
+stop_app()

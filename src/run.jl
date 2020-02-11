@@ -62,3 +62,13 @@ function run_app(app::Module; async = false)
 
     Genie.AppServer.startup(async = async)
 end
+
+"""
+    stop_app()
+
+Stops a running server that was started with `async=true`
+"""
+function stop_app()
+    @async Base.throwto(Genie.AppServer.SERVERS.webserver, InterruptException())
+    @async Base.throwto(Genie.AppServer.SERVERS.websockets, InterruptException())
+end

@@ -43,13 +43,12 @@ function handle_request(id, input_dict, server_module, session)
             try
                 args = (args..., input_dict[string(argname)])
             catch e
-                @error "Bad Server module configuration: Server-side function `$id` takes `$argname` as an input, but there is no UI element with that id"
                 msg = sprint(showerror, e)
                 if typeof(e) <: KeyError
-                    return JSON.json(Dict("matte_error_msg" => "Bad Server module configuration: Server-side function `$id` takes `$argname` as an input, but there is no UI element with that id"))
-                else
-                    return JSON.json(Dict("matte_error_msg" => msg))
+                    msg = "Bad Server module configuration: Server-side function `$id` takes `$argname` as an input, but there is no UI element with that id"
+                    @error msg
                 end
+                return JSON.json(Dict("matte_error_msg" => msg))
             end
         end
     end

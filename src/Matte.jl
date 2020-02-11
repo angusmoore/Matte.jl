@@ -25,7 +25,7 @@ export time_picker, selector, checkbox, switch, radio
 export text_output, plots_output, datatable_output, update_output
 
 # functions and helpers
-export run_app
+export run_app, stop_app
 export new_matte_app, matte_example
 
 include("reflection.jl")
