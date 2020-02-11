@@ -8,6 +8,14 @@ _other_ outputs when you want calculations to have side effects in the UI.
 variables. See the [guide on server-side state](@ref server-side-state) for more information.
 """
 function update_output(id, value, session)
-    msg = JSON.json(Dict("id" => id, "value" => value))
-    Genie.WebChannels.message(session.genie_wsclient, msg)
+    response = try
+        response = render_response(value)
+        JSON.json(Dict("id" => id, "value" => response))
+    catch e
+        msg = sprint(showerror, e)
+        @error string(msg, "\nError occurred trying to `update_output` for `$id` to `$value`")
+
+        JSON.json(Dict("matte_error_msg" => msg))
+    end
+    Genie.WebChannels.message(session.genie_wsclient, response)
 end
