@@ -7,8 +7,8 @@ const title = "Dynamic Selection"
 function ui()
     sidebar_layout(
         side_panel(
-            select("first_select", "Select First Option:", "['Group #1', 'Group #2']"),
-            select("main_select", "Choose a subgroup", "dynamic_items")
+            selector("first_select", "Select First Option:", "['Group #1', 'Group #2']"),
+            selector("main_select", "Choose a subgroup", "dynamic_items")
         ),
         main_panel(
             h1("Chosen Sub-group"),

@@ -18,6 +18,10 @@ end
     include("test-api.jl")
 end
 
+@testset "Examples" begin
+    include("test-examples.jl")
+end
+
 @testset "Layouts" begin
     include("test-layouts.jl")
 end

@@ -16,15 +16,17 @@ Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
 UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [compat]
-julia = "^1"
 DataFrames = "^0.20.0"
 Genie = "^0.25.6"
 Plots = "^0.28.4"
 Tables = "^0.2.11"
+julia = "^1"
 
 [extras]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [targets]
-test = ["Test", "HTTP"]
+test = ["CSV", "Test", "HTTP", "Random"]
