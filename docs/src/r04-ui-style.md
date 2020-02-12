@@ -9,6 +9,14 @@ h3
 br
 ```
 
+## Layout elements
+
+```@
+divider
+list
+list_item
+```
+
 ## Conditionally showing UI
 
 ```@docs
@@ -28,7 +36,7 @@ dialog
 snackbar
 ```
 
-## Providing miscellaneous info to users
+## Providing info to users
 
 ```@docs
 circular_loader

@@ -57,7 +57,7 @@ If you need to include multiple elements inside `content`, wrap them as a tuple.
     For best results `dialog`s should be placed at the _end_ of your UI, after the layout.
     Placing them inside a layout can cause them to be hidden.
 """
-function dialog(id, title, content, width = 500)
+function dialog(id, title, content; width = 500)
     (UIElement("""
     <v-dialog
       v-model="$id"
@@ -178,15 +178,85 @@ function hide_if(id, content...)
 end
 
 """
-    circular_loader(width = 3, color = "primary")
+    circular_loader(; width = 3, color = "primary")
 
 Add a circular spinning loading animation to your UI. Best wrapped in a `show_if` so you
 can hide it once the relevant content has finished loading.
 """
-function circular_loader(width::Integer = 3, color::AbstractString = "primary")
+function circular_loader(; width::Integer = 3, color::AbstractString = "primary")
     UIElement("""<v-progress-circular
       :width="$width"
       color="$color"
       indeterminate
     ></v-progress-circular>""")
+end
+
+"""
+    divider(; inset = false, vertical = false)
+
+Create a thin line to separate sections of a layout. `inset` adds 72px of indentation to the
+left for horizontal dividers, and reduces max-height for vertical dividers.
+"""
+function divider(; inset = false, vertical = false)
+    UIElement("""
+    <v-divider
+      $(inset ? "inset" : "")
+      $(vertical ? "vertical" : "")
+    ></v-divider>
+    """)
+end
+
+"""
+    function list(id, items...; title = nothing)
+
+Create a list of items for users to choose from. `items...` should be populated with
+`list_item`s.
+
+`title` is optional; if specified it provides a grey title at the top of the list.
+
+The selected list item is returned to the server as a zero-based index.
+"""
+function list(id, items...; title = nothing)
+    if title != nothing
+        title = UIElement("<v-subheader>REPORTS</v-subheader>")
+    else
+        title = ()
+    end
+    UIElement("""<v-list><v-list-item-group v-model = "$id" color="primary">"""),
+    title,
+    items...,
+    UIElement("</v-list-item-group></v-list>"),
+    UIModel(id, "null")
+end
+
+"""
+    list_item(title, subtitle = nothing)
+
+Should only be used as part of a `list`
+
+`subtitle` is optional. It provides more detail in a smaller font beneath the main item.
+"""
+function list_item(title, subtitle = nothing)
+    if subtitle != nothing
+        UIElement("
+        <v-list-item two-line>
+            <v-list-item-content>
+            <v-list-item-title>")
+        title,
+        UIElement("</v-list-item-title>
+            <v-list-item-subtitle>"),
+        subtitle,
+        UIElement("</v-list-item-subtitle>
+            </v-list-item-content>
+            </v-list-item>")
+    else
+        UIElement("
+        <v-list-item>
+            <v-list-item-content>
+            <v-list-item-title>"),
+        title,
+        UIElement("</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>")
+    end
 end

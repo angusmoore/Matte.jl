@@ -16,6 +16,7 @@ export header, footer
 
 # style elements
 export p, h1, h2, h3, br, dialog, snackbar, div, span, show_if, hide_if, circular_loader
+export divider, list, list_item
 
 # input elements
 export slider, text_input, number_input, button, floating_action_button, tooltip, date_picker
