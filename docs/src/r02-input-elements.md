@@ -29,6 +29,7 @@ switch
 checkbox
 list
 list_item
+button_group
 ```
 
 ### Dynamically setting the options in a `selector`

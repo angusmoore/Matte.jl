@@ -9,10 +9,11 @@ h3
 br
 ```
 
-## Layout elements
+## Style / look and feel
 
 ```@
 divider
+icon
 ```
 
 Works well with lists.

@@ -205,3 +205,20 @@ function divider(; inset = false, vertical = false)
     ></v-divider>
     """)
 end
+
+"""
+    function icon(name)
+
+Add an icon to part of your UI. Supports material design icons. The `name` is
+the name of icon - e.g. "home", "heart", etc
+
+For a list of available icons visit [materialdesignicons.com](materialdesignicons.com).
+You can find their names by clicking on them.
+
+Size can be one of `x-small`, `small`, `medium` (default), `large`, `x-large`.
+
+Works well embedded in buttons.
+"""
+function icon(name; size = "medium", color = "primary")
+    UIElement("""<v-icon $size color = "$color">mdi-$name</v-icon""")
+end
