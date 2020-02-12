@@ -27,6 +27,8 @@ selector
 radio
 switch
 checkbox
+list
+list_item
 ```
 
 ### Dynamically setting the options in a `selector`

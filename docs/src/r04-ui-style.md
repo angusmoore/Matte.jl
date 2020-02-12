@@ -13,9 +13,9 @@ br
 
 ```@
 divider
-list
-list_item
 ```
+
+Works well with lists.
 
 ## Conditionally showing UI
 
