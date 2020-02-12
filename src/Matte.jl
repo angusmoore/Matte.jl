@@ -20,7 +20,7 @@ export divider
 
 # input elements
 export slider, text_input, number_input, button, floating_action_button, tooltip, date_picker
-export time_picker, selector, checkbox, switch, radio, list, list_item
+export time_picker, selector, checkbox, switch, radio, list, list_item, button_group
 
 # output elements
 export text_output, plots_output, datatable_output, update_output

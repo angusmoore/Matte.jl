@@ -71,6 +71,29 @@ function button(id::AbstractString, label::AbstractString; color::AbstractString
 end
 
 """
+    button_group(id, buttons...)
+
+Group together a set of buttons to provide `radio`-like exclusive selections.
+
+The list of `buttons` given as input should only contain `button`s. The number (0-based index)
+of the selected button is returned to the server. A selection is mandatory and exclusive.
+
+Component buttons can still have their own `id`s and will still tell the server when they
+are pushed.
+"""
+function button_group(id::AbstractString, buttons...)
+    UIElement("""
+    <v-btn-toggle
+         v-model="$id"
+         rounded
+         mandatory
+       >"""),
+    buttons...,
+    UIElement("</v-btn-toggle>"),
+    UIModel(id, "null")
+end
+
+"""
     floating_action_button(id, label; location = "bottom right", color = "red")
 
 Add a floating action button to your UI at `location`
@@ -181,4 +204,60 @@ function switch(id, label; default = false)
     ></v-switch>
     """),
   UIModel(id, "$default")
+end
+
+
+"""
+    function list(id, items...; title = nothing)
+
+Create a list of items for users to choose from. `items...` should be populated with
+`list_item`s.
+
+`title` is optional; if specified it provides a grey title at the top of the list.
+
+The selected list item is returned to the server as a zero-based index.
+"""
+function list(id, items...; title = nothing)
+    if title != nothing
+        title = UIElement("<v-subheader>REPORTS</v-subheader>")
+    else
+        title = ()
+    end
+    UIElement("""<v-list><v-list-item-group v-model = "$id" color="primary">"""),
+    title,
+    items...,
+    UIElement("</v-list-item-group></v-list>"),
+    UIModel(id, "null")
+end
+
+"""
+    list_item(title, subtitle = nothing)
+
+Should only be used as part of a `list`
+
+`subtitle` is optional. It provides more detail in a smaller font beneath the main item.
+"""
+function list_item(title, subtitle = nothing)
+    if subtitle != nothing
+        UIElement("
+        <v-list-item two-line>
+            <v-list-item-content>
+            <v-list-item-title>")
+        title,
+        UIElement("</v-list-item-title>
+            <v-list-item-subtitle>"),
+        subtitle,
+        UIElement("</v-list-item-subtitle>
+            </v-list-item-content>
+            </v-list-item>")
+    else
+        UIElement("
+        <v-list-item>
+            <v-list-item-content>
+            <v-list-item-title>"),
+        title,
+        UIElement("</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>")
+    end
 end
