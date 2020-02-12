@@ -24,6 +24,9 @@ slider
 
 ```@docs
 selector
+radio
+switch
+checkbox
 ```
 
 ### Dynamically setting the options in a `selector`
@@ -61,3 +64,17 @@ Now, when users make a selection of a group in the first `select`, the options i
 select will reflect that choice.
 
 This pattern can be applied to create complex chains of dependent `select`s.
+
+## Dates and times
+
+```@docs
+date_picker
+time_picker
+```
+
+## Buttons
+
+```@docs
+floating_action_button
+button
+```

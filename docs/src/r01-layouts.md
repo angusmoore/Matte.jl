@@ -56,8 +56,8 @@ header
 
 The `header` function allows you to define your own, custom HTML, header. The `content` in a
 `header` is wrapped inside a `<v-app-bar>` tag. You can include any valid elements inside a
-`<v-app-bar>` that are understood by [Vuetify](https://vuetifyjs.com/). This gives you a lot
-of flexibility, but has a steeper learning curve. As an example, here's how to add a title
+`<v-app-bar>` that are understood by [Vuetify](https://www.vuetifyjs.com). This gives you a
+lot of flexibility, but has a steeper learning curve. As an example, here's how to add a title
 and some navigation icons to your custom header:
 ```
 function ui() {
@@ -74,4 +74,10 @@ function ui() {
     true  
   )
 }
+```
+
+### Custom footer
+
+```@docs
+footer
 ```

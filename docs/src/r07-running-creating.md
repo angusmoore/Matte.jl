@@ -4,6 +4,7 @@
 
 ```@docs
 run_app
+stop_app
 ```
 
 ## Helpers to create apps

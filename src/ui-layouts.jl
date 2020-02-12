@@ -175,7 +175,7 @@ end
     header(content, color, dark)
 
 Define a custom app bar header. `content` should be html that will be included inside the
-<v-app-bar> tag. See [https://vuetifyjs.com/](Vuetify documentation) for more information (or
+<v-app-bar> tag. See [Vuetify documentation](https://vuetifyjs.com/) for more information (or
 a simple example is included in the Matte documentation).
 """
 function header(content::AbstractString, color::AbstractString, dark::Bool)
@@ -208,14 +208,32 @@ function footer(content, bgcolor = "grey lighten-4")
     </v-footer>"""))
 end
 
+"""
+    content_panel(content...)
+
+Create the main content panel for your `footer_control_layout`. Should only be used as an
+input to `footer_control_layout`.
+"""
 function content_panel(content...)
     content
 end
 
+"""
+    control_panel(content...)
+
+Create the control panel for your `footer_control_layout`. Should only be used as an input
+to `footer_control_layout`.
+"""
 function control_panel(content...)
     content
 end
 
+"""
+    footer_control_layout(main_panel, control_panel)
+
+Creates a footer control layout, with a sticky/fixed-position footer at the bottom containing
+the controls for the app, and the main content at the top.
+"""
 function footer_control_layout(main_panel, control_panel)
     UIElement("""<v-container><v-row><v-col cols = "12"><v-card><v-card-text>"""),
     main_panel,
