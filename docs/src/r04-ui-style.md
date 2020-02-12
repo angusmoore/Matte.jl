@@ -14,6 +14,7 @@ br
 ```@
 divider
 icon
+image
 ```
 
 Works well with lists.

@@ -222,3 +222,25 @@ Works well embedded in buttons.
 function icon(name; size = "medium", color = "primary")
     UIElement("""<v-icon $size color = "$color">mdi-$name</v-icon""")
 end
+
+"""
+    image(src; width = nothing, height = nothing, max_width = nothing, max_height = nothing)
+
+Add an image to your UI
+"""
+function image(src; width = nothing, height = nothing)
+    !isfile(joinpath(pwd(), src)) && error("Cannot add image `$src` as no such file exists")
+    Genie.Router.route(src) do
+        Genie.Router.serve_static_file(src, root = pwd())
+    end
+
+    UIElement("""
+    <v-img
+    eager
+    alt = "test"
+    src = '$src'
+    $(height != nothing ? string("height = ", height, "px") : "")
+    $(width != nothing ? string("width = ", width, "px") : "")>
+    </v-img>
+    """)
+end
