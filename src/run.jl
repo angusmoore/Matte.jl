@@ -25,7 +25,7 @@ function establish_subscription_channels()
 end
 
 """
-    run_app(app; async = false)
+    run_app(app; async = true)
 
 The`app` module that defines your app must have a function called `ui` that defines
 the UI. The functions in the module (which don't need to be exported) define
@@ -35,7 +35,7 @@ the UI.
 
 See the `getting started` guide for help on how to define your app.
 """
-function run_app(app::Module; async = false)
+function run_app(app::Module; async = true)
     sanitycheck(app)
     server = app.Server
     ui = app.ui
