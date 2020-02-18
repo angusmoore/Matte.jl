@@ -82,4 +82,6 @@ Please report any bugs you find on the [github issue tracker](https://github.com
 
 ## Acknowledgements
 
-Matte is made possible by a range of excellent julia and javascript open source libraries. Of particular note: [Genie.jl](https://genieframework.github.io/Genie.jl/), [Vuetify](https://vuetifyjs.com/) and [Vue.js](https://vuejs.org/).
+Matte is made possible by a range of excellent julia and javascript open source libraries.
+Of particular note: [Genie.jl](https://genieframework.github.io/Genie.jl/),
+[Vuetify](https://vuetifyjs.com/) and [Vue.js](https://vuejs.org/).
