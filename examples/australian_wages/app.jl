@@ -2,7 +2,7 @@ module AustralianWages
 
 using Matte
 
-const title = "Australian Wages by Occupation"
+const title = "Matte Example :: Australian Wages by Occupation"
 
 function ui()
     sidebar_layout(

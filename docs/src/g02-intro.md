@@ -21,7 +21,7 @@ end
 
 This relationship is expressed in our app accordingly:
 
-image here
+![](assets/g02-matte-structure.png)
 
 `number1` and `number2` are the unique IDs for inputs in our UI. We access these in our function
 by name. The output from that calculation, called `my_add` in our server, is accessed by name
@@ -53,12 +53,12 @@ runs in the background. If you want to stop your app without killing your REPL, 
 stop_app()
 ```
 
-## Revise
+## A quick note on Revise
 
 Use [`Revise`](https://github.com/timholy/Revise.jl)! With Revise, you can edit your app
 module (if you `includet` it) and changes will be reflected in the running app. Otherwise,
-you need to redefine the module everytime you make changes and re-launch your app.
+you need to redefine the module every time you make changes and re-launch your app.
 
 Use `Revise`!
 
-In the [next tutorial](@ref guide-ui), we'll look at the basics of building a UI in Matte.
+In the [next tutorial](@ref g03-ui), we'll look at the basics of building a UI in Matte.

@@ -1,4 +1,4 @@
-# Input elements
+# [Input elements](@id r02-input-elements)
 
 ## Text input
 
@@ -63,10 +63,10 @@ function dynamic_items(first_select)
 end
 ```
 
-Now, when users make a selection of a group in the first `select`, the options in the second
+Now, when users make a selection of a group in the first `selector`, the options in the second
 select will reflect that choice.
 
-This pattern can be applied to create complex chains of dependent `select`s.
+This pattern can be applied to create complex chains of dependent `selector`s.
 
 ## Dates and times
 

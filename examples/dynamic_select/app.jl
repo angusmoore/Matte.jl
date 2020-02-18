@@ -2,7 +2,7 @@ module DynamicSelectApp
 
 using Matte
 
-const title = "Dynamic Selection"
+const title = "Matte Example :: Dynamic Selection"
 
 function ui()
     sidebar_layout(

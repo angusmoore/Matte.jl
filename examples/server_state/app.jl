@@ -2,7 +2,7 @@ module ServerStateExample
 
 using Matte
 
-const title = "Server-side state"
+const title = "Matte Example :: Server-side state"
 
 function ui()
     sidebar_layout(

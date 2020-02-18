@@ -5,7 +5,8 @@ Manually update a UI variable/element `id` to `value`. Use inside server-side fu
 _other_ outputs when you want calculations to have side effects in the UI.
 
 `session` is the optional `session` argument to server-side functions that provides stateful
-variables. See the [guide on server-side state](@ref server-side-state) for more information.
+variables. See the guides on [server-side state](@ref g06a-server-side-state) and
+[side effects](@ref g06b-side-effects) for more information.
 """
 function update_output(id, value, session)
     response = try

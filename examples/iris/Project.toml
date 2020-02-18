@@ -1,0 +1,6 @@
+[deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+InvertedIndices = "41ab1584-1d38-5bbf-9106-f11c6c58b48f"
+Matte = "b0b859e2-eb2e-45cd-bd98-8fc21bfdc9fa"
+RDatasets = "ce6b1742-4840-55fa-b093-852dadbb1d8b"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"

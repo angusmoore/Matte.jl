@@ -2,12 +2,12 @@ module PlotsExample
 
 using Matte
 
-const title = "Using Plots with Matte"
+const title = "Matte Example :: Using Plots with Matte"
 
 function ui()
     sidebar_layout(
         side_panel(
-            h1("Hello World!"),
+            h1("Choose a distribution:"),
             br(),
             radio("use_dist", ["Normal", "Exponential", "Uniform"], ["Normal", "Exponential", "Uniform"])
         ),

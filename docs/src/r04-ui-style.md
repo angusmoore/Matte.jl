@@ -1,4 +1,4 @@
-# Other UI elements and controlling your app's style
+# [Other UI elements and controlling your app's style](@id r04-ui-style)
 
 ## Basic text formatting
 ```@docs
@@ -11,12 +11,10 @@ br
 
 ## Style / look and feel
 
-```@
+```@docs
 divider
 icon
 ```
-
-Works well with lists.
 
 ## Conditionally showing UI
 

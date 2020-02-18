@@ -1,4 +1,4 @@
-# Matte.jl <a href='https://angusmoore.github.io/Matte.jl/'><img src='docs/src/assets/matte-logo.png' align="right" height="140"/></a>
+# Matte.jl <a href='https://angusmoore.github.io/Matte.jl/'><img src='docs/src/assets/logo.png' align="right" height="140"/></a>
 
 ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 ![CI](https://github.com/angusmoore/Matte.jl/workflows/CI/badge.svg)

@@ -6,8 +6,11 @@ dashboard for end users. Matte is easy to use, fast, and powerful.
 
 **Please note**: Matte is new and is still highly experimental.
 
+![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+
 ## Examples
 
+TBC
 
 ## Support, bugs, & planned features
 

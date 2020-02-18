@@ -2,7 +2,7 @@ module HelloWorldApp
 
 using Matte
 
-const title = "Hello World"
+const title = "Matte Example :: Hello World"
 
 function ui()
     sidebar_layout(

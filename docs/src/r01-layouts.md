@@ -1,4 +1,4 @@
-# Layouts
+# [Layouts](@id r01-layouts)
 
 ## Sidebar layouts
 
@@ -32,8 +32,8 @@ Similar to a `sidebar_layout` except that the control panel appears at the botto
 the main content/output of your app.
 
 !!! note
-  The layout of `footer_control_layout` isn't working for apps with large amounts of content
-  in the `content_panel`; the control panel obscures scrolling down.
+    The layout of `footer_control_layout` isn't working for apps with large amounts of content
+    in the `content_panel`; the control panel obscures scrolling down.
 
 ## Custom layouts
 
