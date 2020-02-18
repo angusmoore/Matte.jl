@@ -17,7 +17,7 @@ function vue_models(content::NTuple{N, UIModel}) where N
     join(["matte_notconnected_overlay: true,\nerror_snackbar: false,\nmatte_error_msg: \"\"", [vue_models(x) for x in content]...], ",\n")
 end
 
-function fetch_update_methods(input_id, reverse_dependencies, dependency_tree)
+function fetch_update_method(input_id, reverse_dependencies, dependency_tree)
     out = "
     fetch_update_$input_id: function(value) {\n"
     for output in reverse_dependencies
@@ -72,8 +72,13 @@ function update_model()
     }"""
 end
 
-function vue_methods(rev_dep, dep_tree)
-    methods = [fetch_update_methods(input_id, outputs_affected, dep_tree) for (input_id, outputs_affected) in rev_dep]
+function vue_methods(models, rev_dep, dep_tree)
+    for model in models
+        if !haskey(rev_dep, model.id)
+            rev_dep[model.id] = []
+        end
+    end
+    methods = [fetch_update_method(input_id, outputs_affected, dep_tree) for (input_id, outputs_affected) in rev_dep]
     pushfirst!(methods, on_connected(dep_tree))
     pushfirst!(methods, update_model())
     join(methods, ",\n")
@@ -92,7 +97,7 @@ function vue_js(rev_dep, dep_tree, models, watch)
         $(vue_models(models))
       },
       methods: {
-        $(vue_methods(rev_dep, dep_tree))
+        $(vue_methods(models, rev_dep, dep_tree))
       },
       watch: {
         $(vue_watch(rev_dep, watch))

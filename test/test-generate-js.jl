@@ -30,3 +30,20 @@ end
 @test Matte.dependency_tree(Server) == Dict("foo" => ["slider"], "bar" => ["slider", "textinput"], "baz" => ["slider"])
 
 end
+
+
+module TestUnAttachedModel
+
+using Matte
+
+title = "Test"
+
+function ui()
+    button("test", "Push me")
+end
+
+module Server
+
+end
+
+end
