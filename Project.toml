@@ -18,6 +18,7 @@ UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 [compat]
 DataFrames = "^0.20.0"
 Genie = "0.25.6, 0.26"
+JSON = "0.21"
 Plots = "^0.28.4, 0.29"
 Tables = "^0.2.11"
 julia = "^1"
