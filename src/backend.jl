@@ -1,9 +1,16 @@
-render_response(response) = error("Don't know how to render result of type `$(typeof(response))`")
+function render_response(response)
+    if Tables.istable(response)
+        render_df_response(response)
+    else
+        error("Don't know how to render result of type `$(typeof(response))`")
+    end
+end
 
 render_response(response::AbstractString) = response
 render_response(response::Bool) = response
 render_response(response::Number) = response
 render_response(response::Nothing) = nothing
+render_response(response::DataFrames.AbstractDataFrame) = render_df_response(response)
 
 function render_response(response::Plots.Plot)
     io = IOBuffer()
@@ -17,7 +24,7 @@ function jsonify_table_row(row)
     Dict(columnname => getproperty(row, columnname) for columnname in propertynames(row))
 end
 
-function render_response(response::Union{DataFrames.AbstractDataFrame, Tables.Table})
+function render_df_response(response)
     data = [jsonify_table_row(row) for row in Tables.rows(response)]
     if length(data) == 0
          data = String[]
