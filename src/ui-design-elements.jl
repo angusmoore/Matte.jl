@@ -220,5 +220,5 @@ Size can be one of `x-small`, `small`, `medium` (default), `large`, `x-large`.
 Works well embedded in buttons.
 """
 function icon(name; size = "medium", color = "primary")
-    UIElement("""<v-icon $size color = "$color">mdi-$name</v-icon""")
+    UIElement("""<v-icon $size color = "$color">mdi-$name</v-icon>""")
 end
