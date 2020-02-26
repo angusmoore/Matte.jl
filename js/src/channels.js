@@ -1,3 +1,15 @@
+// This file is a modified version of the one from Genie.jl (https://github.com/GenieFramework/Genie.jl)
+// Copyright (c) 2016-2019 Adrian Salceanu and Genie.jl Contributors
+
+window.Genie = {};
+Genie.Settings = {
+  "webchannels_autosubscribe":true,
+  "server_host":"127.0.0.1",
+  "webchannels_subscribe_channel":"subscribe",
+  "server_port":8000,
+  "webchannels_default_route":"__",
+  "webchannels_unsubscribe_channel":"unsubscribe","websockets_port":8001
+}
 
 // Genie WebChannels functions
 Genie.WebChannels = {};
@@ -111,7 +123,7 @@ Matte.open_channel = function() {
   });
 
   Genie.WebChannels.errorHandlers.push(function(event) {
-    // TODO
+    console.log(event.data)
   });
 
   Genie.WebChannels.closeHandlers.push(function(event) {
