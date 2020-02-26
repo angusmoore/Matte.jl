@@ -75,7 +75,7 @@ $footer
     </v-overlay>
 </v-app>
 </div>
-<script src="/__/matte.js"></script>
+<script src="/bundle.min.js"></script>
 <script>
 session_id = "$(UUIDs.uuid1())";
 $(vue_js(rev_dep, dep_tree, models, watch))
