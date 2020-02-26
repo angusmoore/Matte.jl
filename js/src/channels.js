@@ -74,19 +74,12 @@ Genie.WebChannels.load_channels = function() {
   }
 };
 
-function subscribe() {
+function set_ready() {
   if (document.readyState === "complete" || document.readyState === "interactive") {
-    Genie.WebChannels.sendMessageTo(window.Genie.Settings.webchannels_default_route, window.Genie.Settings.webchannels_subscribe_channel);
     g.on_connected()
   } else {
-    console.log("Queuing subscription");
-    setTimeout(subscribe, 1000);
+    setTimeout(set_ready, 1000);
   }
-};
-
-function unsubscribe() {
-  Genie.WebChannels.sendMessageTo(window.Genie.Settings.webchannels_default_route, window.Genie.Settings.webchannels_unsubscribe_channel);
-  g.matte_notconnected_overlay = true;
 };
 
 // Matte.jl functions
@@ -132,10 +125,10 @@ Matte.open_channel = function() {
   });
 
   Genie.WebChannels.openHandlers.push(function(event) {
-    subscribe();
+    set_ready();
   });
 
   window.onbeforeunload = function() {
-    unsubscribe();
+    g.matte_notconnected_overlay = true;
   };
 }
