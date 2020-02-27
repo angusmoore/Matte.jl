@@ -4,3 +4,5 @@
 /deps/deps.jl
 /docs/build
 Manifest.toml
+js/node_modules/*
+js/dist/*

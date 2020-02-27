@@ -20,3 +20,10 @@ The Matte.jl package is licensed under the MIT "Expat" License:
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
 >
+
+`Matte.jl` includes minified code from the following projects, which have their
+own licenses:
+
+* [Genie.jl](https://github.com/GenieFramework/Genie.jl/) [MIT].
+* [Vue.js](https://github.com/vuejs/vue) [MIT].
+* [Vuetify](https://github.com/vuetifyjs/vuetify) [MIT].

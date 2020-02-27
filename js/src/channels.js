@@ -1,3 +1,15 @@
+// This file is a modified version of the one from Genie.jl (https://github.com/GenieFramework/Genie.jl)
+// Copyright (c) 2016-2019 Adrian Salceanu and Genie.jl Contributors
+
+window.Genie = {};
+Genie.Settings = {
+  "webchannels_autosubscribe":true,
+  "server_host":"127.0.0.1",
+  "webchannels_subscribe_channel":"subscribe",
+  "server_port":8000,
+  "webchannels_default_route":"__",
+  "webchannels_unsubscribe_channel":"unsubscribe","websockets_port":8001
+}
 
 // Genie WebChannels functions
 Genie.WebChannels = {};
@@ -62,19 +74,12 @@ Genie.WebChannels.load_channels = function() {
   }
 };
 
-function subscribe() {
+function set_ready() {
   if (document.readyState === "complete" || document.readyState === "interactive") {
-    Genie.WebChannels.sendMessageTo(window.Genie.Settings.webchannels_default_route, window.Genie.Settings.webchannels_subscribe_channel);
     g.on_connected()
   } else {
-    console.log("Queuing subscription");
-    setTimeout(subscribe, 1000);
+    setTimeout(set_ready, 1000);
   }
-};
-
-function unsubscribe() {
-  Genie.WebChannels.sendMessageTo(window.Genie.Settings.webchannels_default_route, window.Genie.Settings.webchannels_unsubscribe_channel);
-  g.matte_notconnected_overlay = true;
 };
 
 // Matte.jl functions
@@ -111,7 +116,7 @@ Matte.open_channel = function() {
   });
 
   Genie.WebChannels.errorHandlers.push(function(event) {
-    // TODO
+    console.log(event.data)
   });
 
   Genie.WebChannels.closeHandlers.push(function(event) {
@@ -120,10 +125,10 @@ Matte.open_channel = function() {
   });
 
   Genie.WebChannels.openHandlers.push(function(event) {
-    subscribe();
+    set_ready();
   });
 
   window.onbeforeunload = function() {
-    unsubscribe();
+    g.matte_notconnected_overlay = true;
   };
 }

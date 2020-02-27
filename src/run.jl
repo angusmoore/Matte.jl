@@ -44,8 +44,6 @@ function run_app(app::Module; async = true)
 
     genie_config()
 
-    establish_static_routes()
-
     establish_subscription_channels()
 
     Genie.Router.route("/") do
