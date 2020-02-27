@@ -24,7 +24,7 @@ This takes a single argument, which is the `id` of the output (which, of course,
 to a function in the `Server` module).
 
 You can see this element in the `main_panel` of the provided example, where we have given it
-the `id` of `my_plot`:
+the `id` of `output_plot`:
 ```
 function ui()
 sidebar_layout(
@@ -33,7 +33,7 @@ sidebar_layout(
       ),
       main_panel(
           ...
-          plots_output("my_plot")
+          plots_output("output_plot")
       )
   )
 end
@@ -41,44 +41,41 @@ end
 
 ## Plots on the backend
 
-As with all Matte outputs elements, we need a function in the `Server` module called `my_plot`,
+As with all Matte outputs elements, we need a function in the `Server` module called `output_plot`,
 since this is the `id` we gave to `plots_output`. This function should return a `Plots.jl`
 plot.
 
-In the included example, we are using an input variable called `use_dist` to allow the user
-to pick a distribution to sample from. This isn't particularly interesting, but provides a
-little interactivity for the example.
+In the included example, we are using two input variables `xvar` and `yvar` to allow the user
+to pick which features of the `iris` dataset to plot. This isn't particularly interesting,
+but provides a little interactivity for the example.
 
 ```
-function my_plot(use_dist)
-    if use_dist != nothing
-        if use_dist == "Normal"
-            y = Random.randn(10)
-        elseif use_dist == "Exponential"
-            y = Random.randexp(10)
-        else
-            y = rand(10)
-        end
-        plot(1:10, y)
+using Plots
+using RDatasets
+iris = dataset("datasets", "iris")
+
+function output_plot(xvar, yvar)
+    if typeof(xvar) <: AbstractString && typeof(yvar) <: AbstractString
+        plot(iris[!, Symbol(xvar)], iris[!, Symbol(yvar)], seriestype=:scatter)
     end
 end
 ```
 
-The first part of the function checks whether the user has made a selection for `use_dist`,
-if so, it draws to values from the chosen distribution and saves the values in `y`.
+The first part of the function checks whether the user has made a selection for both `xvar`
+and `yvar`. If so, it creates the plot.
 
 The key part is:
 ```
-plot(1:10, y)
+plot(iris[!, Symbol(xvar)], iris[!, Symbol(yvar)], seriestype=:scatter)
 ```
 
-This creates a `Plots.jl` plot, plotting `1:10` on the x-axis and our sampled `y` values the
-y-axis.
+This creates a `Plots.jl` plot, plotting the `xvar` columns on the x-axis and the `yvar`
+column on the y-axis.
 
 This function creates and returns a `Plots.jl` plot. Alternatively, if the user hasn't yet
 selected a distribution to draw from, the function returns `nothing`, which tells Matte not
 to update the UI. This is a helpful pattern for plots because it allows you to delay
-re-rendering of the plot until certain conditions are met (more on that in the next two guides).
+re-rendering of the plot until certain conditions are met (more on that in the next guides).
 
 ## Trying it out
 
@@ -90,7 +87,7 @@ Once you select a species to filter by, you'll see something like this:
 The plot may take a moment to show, particularly if you haven't used `Plots` in your session
 yet, as Julia has to compile `Plots` before it can display anything.
 
-In the [next](@ref g06a-server-side-state) [two](@ref g06b-side-effects) guides, we look at how to have persistent
-server-side vairables and how to change the UI from within other functions. This is an
-introduction to the helpful pattern that follows in the final guide
+In the [next](@ref g06a-server-side-state) [two](@ref g06b-side-effects) guides, we look at
+how to have persistent server-side variables and how to change the UI from within other
+functions. This is an introduction to the helpful pattern that follows in the final guide
 [handling long-running computations](@ref g07-long-running-computations)

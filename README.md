@@ -4,6 +4,9 @@
 ![CI](https://github.com/angusmoore/Matte.jl/workflows/CI/badge.svg)
 [![codecov.io](http://codecov.io/github/angusmoore/Matte.jl/coverage.svg?branch=master)](http://codecov.io/github/angusmoore/Matte.jl?branch=master)
 
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://angusmoore.github.io/Matte.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://angusmoore.github.io/Matte.jl/dev)
+
 Matte is a julia library for julia-powered dashboards, inspired by Google's material design.
 Matte makes it easy to convert your existing julia code into a beautiful and powerful dashboard
 for end users.
@@ -18,8 +21,7 @@ TBC
 
 ### Installation
 
-Matte is not yet registered in the julia general repository. To install the latest release
-run the following from the `Pkg` repl (type `]` to get there):
+To install the latest release run the following from the `Pkg` repl (type `]` to get there):
 ```
 pkg> add Matte
 ```

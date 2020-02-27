@@ -7,14 +7,12 @@ const title = "Matte Example :: Using Plots with Matte"
 function ui()
     sidebar_layout(
         side_panel(
-            h1("Choose a distribution:"),
+            selector("xvar", "X variable", "['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth', 'Species']"),
             br(),
-            radio("use_dist", ["Normal", "Exponential", "Uniform"], ["Normal", "Exponential", "Uniform"])
+            selector("yvar", "Y variable", "['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth', 'Species']"),
         ),
         main_panel(
-            h1("Plot shows here: "),
-            br(),
-            plots_output("my_plot")
+            plots_output("output_plot")
         )
     )
 end
@@ -22,18 +20,12 @@ end
 module Server
 
 using Plots
-import Random
+using RDatasets
+iris = dataset("datasets","iris")
 
-function my_plot(use_dist)
-    if use_dist != nothing
-        if use_dist == "Normal"
-            y = Random.randn(10)
-        elseif use_dist == "Exponential"
-            y = Random.randexp(10)
-        else
-            y = rand(10)
-        end
-        plot(1:10, y)
+function output_plot(xvar, yvar)
+    if typeof(xvar) <: AbstractString && typeof(yvar) <: AbstractString
+        plot(iris[!, Symbol(xvar)], iris[!, Symbol(yvar)], seriestype=:scatter)
     end
 end
 
