@@ -71,7 +71,7 @@ end
 function update_model()
     """
     update_model: function(response) {
-        if (response.hasOwnProperty("matte_error_msg") && !(response["matte_error_msg"] === null)) {
+        if (Object.prototype.hasOwnProperty.call(response, "matte_error_msg") && !(response["matte_error_msg"] === null)) {
             this.matte_error_msg = response["matte_error_msg"]
             this.error_snackbar = true
         } else if (!(response['value'] === null)) {

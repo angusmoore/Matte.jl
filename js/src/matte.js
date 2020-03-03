@@ -1,27 +1,29 @@
-// Genie WebChannels functions
+var Settings = require('./config.js');
+
+var Matte = {};
+
 Matte.WebSockets = {}
 Matte.load_channels = function(vue_instance) {
-  var socket = new WebSocket('ws://' + Matte.Settings.server_host + ':' + Matte.Settings.websockets_port);
+  var socket = new WebSocket('ws://' + Settings.server_host + ':' + Settings.websockets_port);
   Matte.WebSockets.socket = socket;
   Matte.WebSockets.sendMessageTo = sendMessageTo;
   Matte.vue_instance = vue_instance;
 
-  window.addEventListener('beforeunload', function (event) {
+  window.addEventListener('beforeunload', function () {
     Matte.vue_instance.matte_notconnected_overlay = true;
     if (Matte.WebSockets.socket.readyState === 1) {
       Matte.WebSockets.socket.close();
     }
   });
 
-  socket.addEventListener('open', function(event) {
+  socket.addEventListener('open', function() {
     Matte.set_ready(Matte.vue_instance);
   });
 
   socket.addEventListener('message', function(event) {
     try {
       if (event.data.startsWith('{') && event.data.endsWith('}')) {
-        response = JSON.parse(event.data)
-        Matte.vue_instance.update_model(response)
+        Matte.vue_instance.update_model(JSON.parse(event.data));
       } else {
         console.log(event.data);
       }
@@ -34,7 +36,7 @@ Matte.load_channels = function(vue_instance) {
     console.log(event.data)
   });
 
-  socket.addEventListener('close', function(event) {
+  socket.addEventListener('close', function() {
     console.log("Server closed WebSocket connection");
     Matte.vue_instance.matte_notconnected_overlay = true;
   });
@@ -55,14 +57,16 @@ Matte.set_ready = function(vue_instance) {
   if (document.readyState === "complete" || document.readyState === "interactive") {
     vue_instance.on_connected()
   } else {
-    setTimeout(set_ready, 1000, vue_instance);
+    setTimeout(Matte.set_ready, 1000, vue_instance);
   }
 }
 
 Matte.request_update = function(id, inputs) {
-  Matte.WebSockets.sendMessageTo('matte', 'api', {
+  Matte.WebSockets.sendMessageTo(Settings.channel, Settings.message, {
       'id': id,
       'input': inputs,
       'session_id': Matte.vue_instance.session_id
   });
 }
+
+export var MatteMod = Matte;

@@ -6,23 +6,6 @@ function genie_config()
     Genie.config.log_level = Logging.Error
     Genie.config.log_to_file = false
     Genie.config.server_document_root = included_file_path(joinpath("files"))
-    Genie.config.webchannels_default_route = "matte"
-    Genie.config.webchannels_subscribe_channel = "subscribe"
-    Genie.config.webchannels_unsubscribe_channel = "unsubscribe"
-    Genie.config.webchannels_autosubscribe = true
-end
-
-function establish_subscription_channels()
-    Genie.Router.channel("/$(Genie.config.webchannels_default_route)/subscribe") do
-        Genie.WebChannels.subscribe(Genie.Requests.wsclient(), Genie.config.webchannels_default_route)
-        "Subscription: OK"
-    end
-
-    Genie.Router.channel("/$(Genie.config.webchannels_default_route)/unsubscribe") do
-        Genie.WebChannels.unsubscribe(Genie.Requests.wsclient(), Genie.config.webchannels_default_route)
-        Genie.WebChannels.unsubscribe_disconnected_clients()
-        "Unsubscription: OK"
-    end
 end
 
 """
@@ -43,8 +26,6 @@ function run_app(app::Module; async = true)
     sessions = create_sessions(app)
 
     genie_config()
-
-    establish_subscription_channels()
 
     Genie.Router.route("/") do
         generate_template(app.title, ui, server)
