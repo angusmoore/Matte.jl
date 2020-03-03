@@ -3,7 +3,8 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import './channels.js'
+import './config.js'
+import './matte.js'
 
 Vue.use(Vuetify)
 

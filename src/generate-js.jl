@@ -90,7 +90,7 @@ end
 
 function vue_js(rev_dep, dep_tree, models, watch)
     """
-    g = new Vue({
+    new Vue({
       el: '#app',
       vuetify: new Vuetify(),
       data: {
@@ -103,7 +103,7 @@ function vue_js(rev_dep, dep_tree, models, watch)
         $(vue_watch(rev_dep, watch))
       },
       mounted: function() {
-        Matte.open_channel();
+        Matte.load_channels(this);
       }
     })
     """
