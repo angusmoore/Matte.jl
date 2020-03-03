@@ -8,7 +8,7 @@ Should only be used as part of a `sidebar_layout`
 function side_panel(content...)
     (UIElement("""<v-col cols = "4"><v-card><v-card-text>"""),
     content...,
-    UIElement("</v-card></v-card-text></v-col>"))
+    UIElement("</v-card-text></v-card></v-col>"))
 end
 
 """
