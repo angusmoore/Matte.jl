@@ -2,7 +2,7 @@ module Matte
 
 import Genie, Genie.Router
 import Base64: base64encode
-import DataFrames, Dates, JSON, Logging, Pkg, Plots, Tables, UUIDs
+import DataFrames, Dates, JSON, Logging, Pkg, Plots, Tables
 
 import Base: getproperty, setproperty!
 

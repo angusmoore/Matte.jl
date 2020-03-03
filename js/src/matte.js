@@ -63,6 +63,6 @@ Matte.request_update = function(id, inputs) {
   Matte.WebSockets.sendMessageTo('matte', 'api', {
       'id': id,
       'input': inputs,
-      'session_id': window.session_id
+      'session_id': Matte.vue_instance.session_id
   });
 }

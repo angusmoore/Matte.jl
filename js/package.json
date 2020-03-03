@@ -12,6 +12,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "uuid": "^7.0.1",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.0",
     "vue-template-compiler": "^2.6.11",

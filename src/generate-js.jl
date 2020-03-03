@@ -13,8 +13,16 @@ end
 
 vue_models(m::UIModel) = "$(m.id): $(m.default)"
 
+function matte_builtin_models()
+"""
+            matte_notconnected_overlay: true,
+            error_snackbar: false,
+            matte_error_msg: "",
+            session_id: uuidv1()"""
+end
+
 function vue_models(content::NTuple{N, UIModel}) where N
-    join(["matte_notconnected_overlay: true,\nerror_snackbar: false,\nmatte_error_msg: \"\"", [vue_models(x) for x in content]...], ",\n")
+    join([matte_builtin_models(), [vue_models(x) for x in content]...], ",\n")
 end
 
 function fetch_update_method(input_id, reverse_dependencies, dependency_tree)
