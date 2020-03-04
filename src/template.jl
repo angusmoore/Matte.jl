@@ -44,6 +44,7 @@ function generate_template(title, ui, server_module)
 <head>
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <title>$title</title>
 </head>
 <body>

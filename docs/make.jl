@@ -2,7 +2,10 @@ using Documenter, Matte
 
 makedocs(
     modules = [Matte],
-    format = Documenter.HTML(; prettyurls = get(ENV, "CI", nothing) == "true"),
+    format = Documenter.HTML(
+        prettyurls = get(ENV, "CI", nothing) == "true",
+        assets = ["assets/favicon.ico"]
+    ),
     authors = "Angus Moore",
     sitename = "Matte.jl",
     pages = Any["index.md",
