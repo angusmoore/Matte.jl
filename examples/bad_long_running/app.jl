@@ -2,7 +2,7 @@ module BadLongRunningExample
 
 using Matte
 
-const title = "Matte Example :: Long-running Computations"
+const title = "Matte Example :: How Not To Do Long-running Computations"
 
 function ui()
     sidebar_layout(
