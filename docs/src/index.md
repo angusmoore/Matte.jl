@@ -10,7 +10,7 @@ dashboard for end users. Matte is easy to use, fast, and powerful.
 
 ## Examples
 
-[Create an app for interactive plotting](http://104.154.85.59/mattejl/plotsexample/)
+* [Example of interactive plotting](http://104.154.85.59/mattejl/plotsexample/)
 
 (NB: Examples are temporarily hosted, and may not be available from time-to-time).
 
