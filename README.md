@@ -15,7 +15,9 @@ for end users.
 
 ## Examples
 
-TBC
+* [Create an app for interactive plotting](http://104.154.85.59/mattejl/plotsexample/)
+
+(NB: Examples are temporarily hosted, and may not be available from time-to-time).
 
 ## Getting started
 
