@@ -2,13 +2,15 @@
 
 ## Installation
 
-Matte is not yet registered in the julia general repository. To install the latest release run the following from the `Pkg` repl (type `]` to get there):
-
+To install the latest release run the following from the `Pkg` repl (type `]` to get there):
 ```
-pkg> add https://github.com/angusmoore/Matte.jl.git#v0.1.0
+pkg> add Matte
 ```
 
-You can install the latest development version by removing the `#v0.1.0`.
+You can install the latest development version by running:
+```
+pkg> add https://github.com/angusmoore/Matte.jl.git
+```
 
 ## Creating your first app
 
