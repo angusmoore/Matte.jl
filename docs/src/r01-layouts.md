@@ -20,6 +20,36 @@ tabs_layout
 tab_panel
 ```
 
+!!! example
+    Create a `tabs_layout` UI with three tabs (all of which have some placeholder content).
+    Tab 1 wraps its content in a tuple because it needs multiple elements in the panel
+    content.
+    ```
+    function ui()
+      tabs_layout(
+        tab_panel(
+          "Tab 1",
+          (
+            h1("Content for tab 1 goes here"),
+            br(),
+            slider("slider1", "Number 1", 0, 100)
+          )
+        ),
+        tab_panel(
+          "Tab 2",
+          sidebar_layout(
+            side_panel(h1("You can even inset sidebar layouts inside tab!")),
+            main_panel(plots_output("my_plot"))
+          )
+        ),
+        tab_panel(
+          "Tab 3",
+          "You can have as many tabs as you like..."
+        )
+      )
+    end
+    ```
+
 ## Control panel in the footer
 
 ```@docs

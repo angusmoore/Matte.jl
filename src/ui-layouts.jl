@@ -82,8 +82,8 @@ end
 
 struct TabPanel
     title::String
-    content::NTuple{N, UIElement} where N
-    model::NTuple{M, UIModel} where M
+    content
+    model
 end
 
 """
@@ -96,7 +96,8 @@ function tabs_layout(tabs...; vertical = false)
 
     start = UIElement("""
     <v-tabs
-      background-color="deep-purple accent-4"
+      background-color="indigo darken-4"
+      dark
       centered>""")
 
     tab_buttons = [UIElement("""<v-tab >$(tab.title)</v-tab>""") for (i, tab) in enumerate(tabs)]
@@ -104,7 +105,7 @@ function tabs_layout(tabs...; vertical = false)
     tab_content = ()
     for (i, tab) in enumerate(tabs)
         tab_content = (tab_content..., UIElement("""<v-tab-item>
-          <v-card>"""), tab.content,
+          <v-card>"""), tab.content, tab.model,
           UIElement("""</v-card></v-tab-item>"""))
     end
 

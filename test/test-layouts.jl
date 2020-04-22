@@ -32,6 +32,44 @@ tabs = tabs_layout(
 @test typeof(tabs) <: Tuple
 @test typeof(tabs[1]) <: Matte.UIElement
 
+module TestTablayout
+using Matte
+const title = "Test Tab Layout"
+function ui()
+tabs_layout(
+  tab_panel(
+    "Tab 1",
+    (
+      h1("Content for tab 1 goes here"),
+      br(),
+      slider("slider1", "Number 1", 0, 100)
+    )
+  ),
+  tab_panel(
+    "Tab 2",
+    sidebar_layout(
+      side_panel(h1("You can even inset sidebar layouts inside tab!")),
+      main_panel(plots_output("my_plot"))
+    )
+  ),
+  tab_panel(
+    "Tab 3",
+    "You can have as many tabs as you like..."
+  )
+)
+end
+module Server
+end
+
+end
+
+run_app(TestTablayout, async = true)
+
+# Test that we can actually fetch the javascript that powers Matte
+res = HTTP.request("GET", "http://localhost:8000/")
+@test res.status == 200
+stop_app()
+
 custom = custom_grid_layout((
     custom_grid_row(
         custom_grid_column(

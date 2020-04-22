@@ -33,7 +33,13 @@ UIModel(els::Tuple) = unroll(els)
 
 tag_wrap(tag, contents...) = (UIElement("<$tag>"), contents, UIElement("</$tag>"))
 
-extract_uitype(t::Type, el::AbstractUIElement) = el
+function extract_uitype(t::Type, el::AbstractUIElement)
+    if typeof(el) <: t
+        (el)
+    else
+        ()
+    end
+end
 
 function extract_uitype(t::Type, content::Tuple)
     out = ()
