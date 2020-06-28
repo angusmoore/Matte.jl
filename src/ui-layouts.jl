@@ -98,6 +98,7 @@ function tabs_layout(tabs...; vertical = false)
     <v-tabs
       background-color="indigo darken-4"
       dark
+      $(vertical ? "vertical" : "")
       centered>""")
 
     tab_buttons = [UIElement("""<v-tab >$(tab.title)</v-tab>""") for (i, tab) in enumerate(tabs)]
@@ -108,9 +109,9 @@ function tabs_layout(tabs...; vertical = false)
           <v-card>"""), tab.content, tab.model,
           UIElement("""</v-card></v-tab-item>"""))
     end
-
     (start, tab_buttons..., tab_content, UIElement("</v-tabs>"))
 end
+    
 
 """
     tab_panel(title, content)
