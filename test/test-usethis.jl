@@ -1,6 +1,6 @@
 
 
-@test_throws SystemError("mkdir", 2, "/foo/bar/app") matte_example("hello_world", "/foo/bar/app")
+@test_throws Exception matte_example("hello_world", "/foo/bar/app")
 new_matte_app("test_new_app", activate = false) == "test_new_app"
 @test basename(pwd()) == "test_new_app"
 @test isfile("app.jl")
