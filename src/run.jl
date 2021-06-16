@@ -41,7 +41,9 @@ function run_app(app::Module; async = true)
         end
     end
 
-    Genie.AppServer.startup(async = async)
+    println(Genie.config.websockets_server)
+
+    Genie.up(async = async)
 end
 
 """

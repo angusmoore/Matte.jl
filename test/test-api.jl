@@ -25,11 +25,11 @@ end
 run_app(TestAPI, async = true)
 
 # Test that we can actually fetch the javascript that powers Matte
-res = HTTP.request("GET", "http://localhost:8000/bundle.min.js")
+res = HTTP.request("GET", "http://127.0.0.1:8000/bundle.min.js")
 @test res.status == 200
 
 # Test that submitting inputs to the backend gives the right result
-HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+HTTP.WebSockets.open("ws://127.0.0.1:8000") do ws
     payload = Dict(
         :channel => "matte",
         :message => "api",

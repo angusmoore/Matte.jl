@@ -41,7 +41,7 @@ using DataFrames, Plots
 using Plots.PlotMeasures
 
 ## DATA IMPORT
-wage_data = CSV.read("ts17individual15occupationgender.csv")
+wage_data = CSV.read("ts17individual15occupationgender.csv", DataFrame)
 
 function show_unit(sub_major)
     length(sub_major) > 0

@@ -40,7 +40,7 @@ end
 
 run_app(TestSession, async = true)
 
-HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+HTTP.WebSockets.open("ws://127.0.0.1:8000") do ws
     payload = Dict(
         :channel => "matte",
         :message => "api",
@@ -60,7 +60,7 @@ HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
     @test JSON.parse(String(readavailable(ws))) == expected
 end
 
-HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+HTTP.WebSockets.open("ws://127.0.0.1:8000") do ws
     payload = Dict(
         :channel => "matte",
         :message => "api",
@@ -80,7 +80,7 @@ HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
     @test JSON.parse(String(readavailable(ws))) == expected
 end
 
-HTTP.WebSockets.open("ws://127.0.0.1:8001") do ws
+HTTP.WebSockets.open("ws://127.0.0.1:8000") do ws
     payload = Dict(
         :channel => "matte",
         :message => "api",

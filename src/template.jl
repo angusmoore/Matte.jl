@@ -51,9 +51,9 @@ function generate_template(title, ui, server_module)
 <div id="app">
 <v-app>
 $header
-<v-content>
+<v-main>
 $content
-</v-content>
+</v-main>
 $footer
     <v-snackbar
         v-model="error_snackbar"
