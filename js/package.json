@@ -16,7 +16,7 @@
     "vue": "^2.6.12",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12",
-    "vuetify": "^2.3.10"
+    "vuetify": "^2.6.10"
   },
   "babel": {
     "presets": [
